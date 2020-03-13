@@ -5,6 +5,7 @@ laravel vue 单页式管理后台
 ```
 laravel new website
 cd website
+edit .env sql config
 composer require wu/giorgio-spa
 npm install && npm run dev
 ```
