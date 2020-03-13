@@ -17,6 +17,7 @@ laravel new website
 cd website
 edit .env sql config
 composer require wu/giorgio-spa
+php artisan spa:install
 npm install && npm run dev
 ```
 
