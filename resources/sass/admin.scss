@@ -1,0 +1,74 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Bootstrap-vue
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+
+// Theme
+@import 'scrollbar';
+@import 'login';
+@import 'theme';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100vh;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+}
+
+a {
+    color: #666;
+
+    &:hover {
+        text-decoration: none;
+
+        svg {
+            fill: #1d68a7;
+        }
+    }
+}
+
+.invalid-feedback {
+    display: block;
+    min-height: 20px;
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.alert-panel {
+    position: fixed;
+    right: 2px;
+    top: 95px;
+    min-width: 300px;
+    z-index: 20191130142;
+}
+
+svg {
+    width: 16px;
+    height: 16px;
+    fill: #666;
+}
+.empty-data{
+    width:32px;
+    height: 32px;
+}
+
+@media (max-width: 991.98px){
+    .main-container, .app-main{
+        width: 100vw!important;
+    }
+}
+

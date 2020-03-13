@@ -1,0 +1,116 @@
+$dark: #000000;
+$default: rgba(0, 0, 0, .1);
+$dark-blue: #36455a;
+$light-blue: #9aacbf;
+$light-green: #9abf9f;
+$light-red: #f2c4d3;
+
+
+.default {
+    background: #ffffff;
+    .sidebar-container{
+
+    }
+}
+
+.bg-light-blue {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $light-blue), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-light-green {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $light-green), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-light-red {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $light-red), no-repeat, fixed;
+    background-size: cover;
+}
+
+
+.bg-indigo {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $indigo), no-repeat, fixed;
+    background-size: cover;
+}
+
+
+.bg-orange {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $orange), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-yellow {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $yellow), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-pink {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $pink), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-purple {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $purple), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-green {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $green), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-teal {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $teal), no-repeat, fixed;
+    background-size: cover;
+}
+
+.bg-cyan {
+    background: url(../images/bg.svg), radial-gradient(farthest-side ellipse at 10% 0, #e1e5e8 10%, $cyan), no-repeat, fixed;
+    background-size: cover;
+}
+
+
+
+/**
+    默认样式覆盖
+ */
+.card{
+    background: none;
+    .card-title{
+        color: #666;
+    }
+}
+.input-group-text{
+    background-color: rgba(0,0,0,.1);
+}
+.form-control{
+    background-color: rgba(255,255,255, .1);
+}
+.custom-select{
+    background: rgba(255,255,255, .1);
+}
+.border {
+    border: 1px solid rgba(0,0,0,.1)!important;
+}
+.table thead th{
+    border-bottom: none;
+}
+.table th, .table td{
+    border-top: none;
+}
+th {
+    color: #495057;
+    background-color: rgba(0,0,0,.1)!important;
+    //border-color: rgba(0,0,0,.1)!important;
+}
+.page-item.disabled .page-link, .page-item .page-link{
+    background-color: rgba(255,255,255,.1)!important;
+    border-color: rgba(0,0,0,.1)!important;
+}
+.page-item.active{
+    background: #3490dc!important;
+}
+.btn-info {
+    color: #ffffff;
+}

@@ -1,0 +1,30 @@
+{
+    "name": "wu/giorgio-spa",
+    "description": "laravel vue spa",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "m-finder",
+            "email": "m@m-finder.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "laravel/ui": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "GiorgioSpa\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GiorgioSpa\\Providers\\GiorgioSpaServiceProvider"
+            ]
+        }
+    }
+}

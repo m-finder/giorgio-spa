@@ -1,0 +1,28 @@
+@media (min-width: 1024px){
+  // 滚动条样式
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-button:vertical {
+    display: none
+  }
+
+  ::-webkit-scrollbar-corner, ::-webkit-scrollbar-track {
+    background: #e2e2e2
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    background: linear-gradient(to right bottom, #fb929e, #b4b4ff, #aedefc)
+  }
+
+  ::-webkit-scrollbar-thumb:vertical:hover {
+    background: linear-gradient(to right bottom, #fb929e, #b4b4ff, #aedefc)
+  }
+
+  ::-webkit-scrollbar-thumb:vertical:active {
+    background: linear-gradient(to right bottom, #fb929e, #b4b4ff, #aedefc)
+  }
+}
