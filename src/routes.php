@@ -11,9 +11,9 @@ Route::get('/admin', function () {
 Route::prefix('admin-api')->namespace('\GiorgioSpa\Http\Controllers')
     ->group(function () {
 
-        Route::post('/login', 'GiorgioSpa\Http\Controllers\LoginController@login');
-        Route::post('/send/mail/reset/password', 'GiorgioSpa\Http\Controllers\MailController@resetPassword');
-        Route::post('/reset/password/by/mail', 'GiorgioSpa\Http\Controllers\AdminController@resetPasswordByMail');
+        Route::post('/login', 'LoginController@login');
+        Route::post('/send/mail/reset/password', 'MailController@resetPassword');
+        Route::post('/reset/password/by/mail', 'AdminController@resetPasswordByMail');
 
         Route::middleware(['auth:admin-api', 'admin.api.log'])->group(function () {
             Route::get('/admins/auth', 'AdminController@adminAuth');
