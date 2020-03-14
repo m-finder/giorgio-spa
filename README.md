@@ -1,13 +1,14 @@
 <p align="center"><img src="https://www.m-finder.com/assets/logo.jpeg"></p>
-
-## About Giorgio Spa
-Giorgio spa is a single page admin package, based on Laravel, Vue, Bootstrap-vue
-
 <p align="center">
 <img src="https://img.shields.io/badge/Author-m--finder-red">
 <img src="https://img.shields.io/badge/Laravel-7.1.1-red">
 <a href="https://packagist.org/packages/wu/giorgio-spa"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
 </p>
+
+## About Giorgio Spa
+Giorgio spa is a single page admin package, based on Laravel, Vue, Bootstrap-vue
+
+
 
 #### Preview
 ![](https://repository-images.githubusercontent.com/247018339/e2357f00-65ee-11ea-8273-8fc1c3e12338)
