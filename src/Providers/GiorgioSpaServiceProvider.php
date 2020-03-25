@@ -63,8 +63,16 @@ class GiorgioSpaServiceProvider extends ServiceProvider
                 __DIR__ . '/../../database/migrations' => database_path('migrations')
             ]);
 
+            $this->publishes([
+                __DIR__ . '/../routes.php' => base_path('routes/admin.php')
+            ]);
+
+
         }
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes.php');
+        if(file_exists(base_path('routes/admin.php'))){
+            $this->loadRoutesFrom(base_path('routes/admin.php'));
+        }
+
     }
 }

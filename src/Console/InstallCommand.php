@@ -28,6 +28,7 @@ class InstallCommand extends Command
             '--provider' => 'GiorgioSpa\Providers\GiorgioSpaServiceProvider',
             '--force' => true
         ]);
+
         $this->call('init:data');
         $this->call('update:package');
     }
