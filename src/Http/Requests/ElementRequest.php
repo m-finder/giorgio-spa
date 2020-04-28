@@ -29,8 +29,8 @@ class ElementRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'name' => 'required|max:255|unique:elements',
-                    'code' => 'required|max:255|unique:elements',
+                    'name' => 'required|max:255', #|unique:elements
+                    'code' => 'required|max:255', #|unique:elements
                     'path' => 'required|max:255',
                     'method' => 'required|max:255',
                 ];
@@ -40,7 +40,7 @@ class ElementRequest extends FormRequest
                     'name' => [
                         'required',
                         'max:255',
-                        Rule::unique('elements')->ignore($id)
+//                        Rule::unique('elements')->ignore($id)
                     ],
                     'code' => [
                         'required',

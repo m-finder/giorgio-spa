@@ -49,7 +49,7 @@ class MenuRequest extends FormRequest
                     'title' => [
                         'required',
                         'max:255',
-                        Rule::unique('menus')->ignore($id)
+//                        Rule::unique('menus')->ignore($id)
                     ],
                     'parent_id' => [
                         'required',
