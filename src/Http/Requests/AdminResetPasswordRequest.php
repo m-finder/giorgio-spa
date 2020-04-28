@@ -2,11 +2,13 @@
 
 namespace GiorgioSpa\Http\Requests;
 
+use GiorgioSpa\Http\Requests\Traits\RequestErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class AdminResetPasswordRequest extends FormRequest
 {
+    use RequestErrorMessage;
     /**
      * Determine if the user is authorized to make this request.
      *

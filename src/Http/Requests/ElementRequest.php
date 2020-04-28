@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Http\Requests;
 
-use App\Http\Requests\Traits\RequestErrorMessage;
+use GiorgioSpa\Http\Requests\Traits\RequestErrorMessage;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
