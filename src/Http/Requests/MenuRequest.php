@@ -31,7 +31,7 @@ class MenuRequest extends FormRequest
             case 'POST':
                 return [
                     'name' => 'required|max:255|unique:menus',
-                    'title' => 'required|max:255|unique:menus',
+                    'title' => 'required|max:255', #|unique:menus
                     'path' => 'required|max:255',
                     'component' => 'required|max:255',
                     'parent_id' => [
