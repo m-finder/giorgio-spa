@@ -37,7 +37,7 @@ class MenuRequest extends FormRequest
                     'parent_id' => [
                         'required',
                         'integer',
-                        Rule::exists('menus', 'id'),
+                        Rule::exists('menus', 'id')->ignore(0),
                     ],
                 ];
             case 'PUT':
@@ -46,7 +46,7 @@ class MenuRequest extends FormRequest
                     'name' => [
                         'required',
                         'max:255',
-                        Rule::unique('menus')->ignore($id)
+                        Rule::unique('menus')->ignore($id)->ignore(0)
                     ],
                     'title' => [
                         'required',

@@ -28,7 +28,6 @@ class AdminResetPasswordRequest extends FormRequest
     {
         switch ($this->method()) {
             case 'PUT':
-                $id = $this->route('id');
                 return [
                     'original_password' => 'required|min:6|max:32',
                     'password' => 'nullable|min:6|max:32',
