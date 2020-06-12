@@ -57,7 +57,7 @@ class Admin extends Authenticatable
     {
         $role_id = Auth::user()->role->id;
         $element = Element::where('path', $path)->first();
-        $has = RoleElement::where('element_id', $element->id)->where('role_id', $role_id)->count();
+        $has = $element ? RoleElement::where('element_id', $element->id)->where('role_id', $role_id)->count() : 0;
         return $has;
     }
 
