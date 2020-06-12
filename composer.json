@@ -1,7 +1,7 @@
 {
     "name": "wu/giorgio-spa",
     "description": "laravel vue spa",
-	"version": "v3.0",
+	"version": "v3.0.1",
     "license": "MIT",
     "authors": [
         {
