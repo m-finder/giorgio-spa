@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'uri' => 'admin',
     'auth' => [
         'guards' => [
             'admin-api' => [

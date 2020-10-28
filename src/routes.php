@@ -4,7 +4,7 @@ Route::get('/email', function () {
     return new GiorgioSpa\Mail\AdminResetPassword(rand(100000, 999999));
 });
 
-Route::get('/admin', function () {
+Route::get(config('admin.uri'), function () {
     return view('admin');
 });
 
