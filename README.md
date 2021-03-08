@@ -1,38 +1,25 @@
-<p align="center"><img src="https://www.m-finder.com/assets/logo.jpeg"></p>
-<p align="center">
-<img src="https://img.shields.io/badge/Author-m--finder-red">
-<img src="https://img.shields.io/badge/Laravel-7.1.1-red">
-<a href="https://packagist.org/packages/wu/giorgio-spa"><img src="https://img.shields.io/badge/License-MIT-green" alt="License"></a>
-</p>
+# giorgio-spa
 
-## About Giorgio Spa
-Giorgio spa is a single page admin package, based on Laravel, Vue, Bootstrap-vue
+laravel vue 单页后台
 
+laravel8 内置 jetstream inertia-vue 版重构。
 
+# 特别声明
 
-#### Preview
-![](https://repository-images.githubusercontent.com/247018339/e2357f00-65ee-11ea-8273-8fc1c3e12338)
+1. 刚开始重构，功能不可用！！！
+2. 只能在全新的 laravel 项目中使用！！！
 
-#### Demo
-[ Demo ](http://test.m-finder.com/admin)
+### install
 
-#### Account
-```
-URL: http://localhost/admin
-Account: admin@admin.com
-Password: 111111
-```
-
-#### Install
-```
-laravel new website
-cd website
-edit .env sql config
+```shell
+composer create-prject laravel/laravel laravel
+composer require laravel/jetstream
 composer require wu/giorgio-spa
-php artisan spa:install
+
+php artisan jetstream:install inertia
+php artisan admin:install
+php artisan migrate
+php artisan admin:migrate
+
 npm install && npm run dev
 ```
-
-#### License
-
-The Giorgio spa is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

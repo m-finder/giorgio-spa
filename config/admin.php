@@ -1,19 +1,29 @@
 <?php
 
+use Giorgio\Models\Admin;
+
 return [
-    'uri' => 'admin',
+    'routes' => [ // 路由
+        [
+            'namespace' => 'Giorgio\Http\Controllers',
+            'name' => 'admin'
+        ]
+    ],
     'auth' => [
         'guards' => [
-            'admin-api' => [
-                'driver' => 'token',
+            'admin' => [
+                'driver' => 'session',
                 'provider' => 'admins',
-                'hash' => false,
             ],
         ],
         'providers' => [
             'admins' => [
                 'driver' => 'eloquent',
-                'model' => GiorgioSpa\Models\Admin::class,
+                'model' => Admin::class,
+                'username' => 'email',
+                'extra' => [
+
+                ]
             ],
         ],
     ],
