@@ -4,8 +4,11 @@ namespace Giorgio\Providers;
 
 use Giorgio\Console\Commands\InstallCommand;
 use Giorgio\Console\Commands\MigrationCommand;
+use Giorgio\Http\Controllers\Auth\LoginController;
 use Giorgio\Http\Middleware\AdminAuthenticate;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,7 +29,11 @@ class GiorgioServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->app->when([LoginController::class, AdminAuthenticate::class])
+            ->needs(StatefulGuard::class)
+            ->give(function () {
+                return Auth::guard('admin');
+            });
     }
 
     protected function registerConfig()
