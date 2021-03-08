@@ -3,6 +3,7 @@
 use Giorgio\Models\Admin;
 
 return [
+    'prefix' => 'admin',
     'routes' => [ // 路由
         [
             'namespace' => 'Giorgio\Http\Controllers',
