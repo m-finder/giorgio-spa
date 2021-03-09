@@ -73,6 +73,7 @@ class GiorgioServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__ . '/../../config/admin.php' => config_path('admin.php')], 'admin');
         $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations/admin')]);
+        $this->publishes([__DIR__ . '/../../resources/js/Layouts' => base_path('resources/js/Layouts')], 'layout');
         $this->publishes([__DIR__ . '/../../resources/js/Pages' => base_path('resources/js/Pages')], 'page');
     }
 }
