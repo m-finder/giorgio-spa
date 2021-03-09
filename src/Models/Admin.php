@@ -18,19 +18,11 @@ class Admin extends Authenticatable
     use TwoFactorAuthenticatable;
     use SoftDeletes;
 
-    protected $guard = 'admin';
-
-    public function username()
-    {
-        return config('admin.auth.providers.admins.username');
-    }
-
     /**
      * @var string[]
      */
     protected $fillable = [
         'name',
-        'role_id',
         'password',
         'avatar',
         'status',
