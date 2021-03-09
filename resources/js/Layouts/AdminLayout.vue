@@ -1,6 +1,6 @@
 <template>
     <div>
-        <jet-banner />
+        <sidebar/>
 
         <div class="min-h-screen bg-gray-100">
             <nav class="bg-white border-b border-gray-100">
@@ -236,6 +236,7 @@ import JetDropdown from '@/Jetstream/Dropdown'
 import JetDropdownLink from '@/Jetstream/DropdownLink'
 import JetNavLink from '@/Jetstream/NavLink'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
+import Sidebar from '@/Layouts/Sidebar'
 
 export default {
     components: {

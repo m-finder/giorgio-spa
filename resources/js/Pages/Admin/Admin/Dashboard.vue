@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import AdminLayout from '@/Pages/Admin/Layout/AdminLayout'
+    import AdminLayout from '@/Layouts/AdminLayout'
     import Welcome from '@/Jetstream/Welcome'
 
     export default {
