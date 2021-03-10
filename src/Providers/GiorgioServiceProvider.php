@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
 use Laravel\Fortify\Actions\AttemptToAuthenticate;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 
@@ -37,6 +38,8 @@ class GiorgioServiceProvider extends ServiceProvider
             ->give(function () {
                 return Auth::guard('admin');
             });
+
+        Inertia::share('adminName', config('admin.name'));
     }
 
     protected function registerConfig()

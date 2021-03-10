@@ -1,14 +1,24 @@
 <template>
-    <nav
-        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-no-wrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
-    >
-        sidebar
-    </nav>
+    <div class="sidebar max-h-full bg-gray-200 shadow-lg flex flex-col justify-between transition-all duration-500 ease-in-out transform border-r-2 border-gray-200" :class="{'md:w-12': !open, 'md:w-64': open}">
+        <div class="nav-brand py-6 pl-1 my-1 flex items-center justify-between text-center">
+            <a href="" class="w-full block text-center">
+                <admin-mark class="block h-9 w-auto block mx-auto" :open="open" :app-name="$page.props.adminName"/>
+            </a>
+        </div>
+    </div>
 </template>
 
 <script>
+
+import AdminLogo from "@/Jetstream/Admin/AdminLogo";
+import AdminMark from "@/Jetstream/Admin/AdminMark";
+
 export default {
-    name: "Sidebar"
+    components: {
+        AdminLogo,
+        AdminMark
+    },
+    props: ['open'],
 }
 </script>
 
