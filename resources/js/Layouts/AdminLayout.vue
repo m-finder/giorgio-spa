@@ -20,7 +20,7 @@
                             </div>
 
                             <inertia-link :href="route('admin.dashboard')">
-                                <jet-application-mark class="block h-9 w-auto"/>
+                                <admin-mark class="block h-6 w-auto"/>
                             </inertia-link>
                         </div>
 
@@ -103,7 +103,7 @@ import JetDropdown from '@/Jetstream/Dropdown'
 import JetDropdownLink from '@/Jetstream/DropdownLink'
 import JetNavLink from '@/Jetstream/NavLink'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
-
+import AdminMark from "@/Jetstream/Admin/AdminMark";
 export default {
     data(){
         return {
@@ -111,6 +111,7 @@ export default {
         }
     },
     components: {
+        AdminMark,
         Sidebar,
         JetApplicationMark,
         JetBanner,
