@@ -19,16 +19,9 @@
                                 </button>
                             </div>
 
-                            <inertia-link :href="route('admin.dashboard')">
+                            <inertia-link :href="route('admin.index')">
                                 <admin-mark class="block h-6 w-auto"/>
                             </inertia-link>
-                        </div>
-
-                        <!-- Navigation Links -->
-                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-                                Dashboard
-                            </jet-nav-link>
                         </div>
                     </div>
 
@@ -40,16 +33,13 @@
                                 </button>
 
                                 <span v-else class="inline-flex rounded-md">
-                            <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                {{ $page.props.user.name }}
-                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                          clip-rule="evenodd"/>
-                                </svg>
-                            </button>
-                        </span>
+                                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    {{ $page.props.user.name }}
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                                    </svg>
+                                </button>
+                            </span>
                             </template>
 
                             <template #content>
@@ -80,7 +70,7 @@
                 </nav>
 
                 <header class="bg-white shadow" v-if="$slots.header">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-8xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                         <slot name="header"></slot>
                     </div>
                 </header>
@@ -104,6 +94,7 @@ import JetDropdownLink from '@/Jetstream/DropdownLink'
 import JetNavLink from '@/Jetstream/NavLink'
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink'
 import AdminMark from "@/Jetstream/Admin/AdminMark";
+
 export default {
     data(){
         return {
@@ -120,5 +111,10 @@ export default {
         JetNavLink,
         JetResponsiveNavLink,
     },
+    methods: {
+        logout() {
+            this.$inertia.post(route('admin.logout'));
+        },
+    }
 }
 </script>

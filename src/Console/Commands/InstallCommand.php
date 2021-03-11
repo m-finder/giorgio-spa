@@ -19,7 +19,7 @@ class InstallCommand extends Command
     public function handle()
     {
         $this->info("installing armani admin");
-        if (file_exists(config_path('admin.php')) && !$this->confirm('config file is exists, overwrite?')) {
+        if (file_exists(config_path('admin.php')) && !$this->confirm('files already exists, overwrite?')) {
             $this->info('canceled');
             exit;
         }
