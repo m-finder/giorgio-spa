@@ -3,6 +3,7 @@
 use Giorgio\Models\Admin;
 
 return [
+    'name' => config('APP_NAME', 'Giorgio-spa'),
     'prefix' => 'admin',
     'routes' => [ // 路由
         [
