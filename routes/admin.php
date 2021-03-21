@@ -16,7 +16,7 @@ Route::prefix(config('admin.prefix'))->middleware(['web'])->group(function () {
 
     Route::middleware(['auth.admin:admin'])->group(function (){
         Route::get('/', function () {
-            return Inertia::render('Admin/Dashboard');
+            return Inertia::render('Admin/Admin/Dashboard');
         })->name('admin.index');
         Route::get('/dashboard', function () {dd('dashboard');})->name('admin.dashboard');
     });

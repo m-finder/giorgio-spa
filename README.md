@@ -14,9 +14,9 @@ laravel8 内置 jetstream inertia-vue 版重构。
 ```shell
 composer create-prject laravel/laravel laravel
 composer require laravel/jetstream
-composer require wu/giorgio-spa
-
 php artisan jetstream:install inertia
+
+composer require wu/giorgio-spa
 php artisan admin:install
 php artisan migrate
 php artisan admin:migrate
