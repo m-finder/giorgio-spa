@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Permission;
-use App\Models\Role;
+use GiorgioSpa\Models\Permission;
+use GiorgioSpa\Models\Role;
 
 return [
 
