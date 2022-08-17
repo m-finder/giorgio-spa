@@ -19,7 +19,7 @@ Giorgio spa is a single page admin package, based on Laravel, vite Vue typeScrip
 ```
 URL: http://localhost/admin
 Account: admin
-Password: 111111
+Password: abc123
 ```
 
 #### Install
@@ -30,11 +30,14 @@ edit .env sql config
 composer require wu/giorgio-spa
 php artisan spa:install
 npm install && npm run dev
+php artisan serve
 ```
 
 #### 注意事项
 
->Services/Tencent/SmsService 中的模版 code 需要根据实际情况替换
+> 配置文件需要根据实际情况更改
+> 
+> 只在 laravel 9.19做过验证
 
 #### 鸣谢
 
