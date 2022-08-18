@@ -75,7 +75,7 @@ export default defineComponent({
       proxy.$refs.ruleFormRef.validate((valid: boolean) => {
         if (valid) {
           state.loading = true
-          roleApi().updateRole(state.ruleForm).then((res?) => {
+          roleApi().update(state.ruleForm).then((res?) => {
             proxy.$notify.success({
               title: '成功',
               message: '操作成功'

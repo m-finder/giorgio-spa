@@ -79,7 +79,7 @@ class Handler extends ExceptionHandler
         }
         if ($request->expectsJson()) {
             $res = [
-                'code' => $code ?: 500,
+                'status' => $code ?: 500,
                 'msg' => $message,
                 'data' => []
             ];

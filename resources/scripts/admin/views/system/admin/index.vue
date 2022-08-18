@@ -153,7 +153,7 @@ export default defineComponent({
     // 获取列表
     const getList = () => {
       state.tableData.loading = true
-      adminApi().getAdmins(state.tableData.param).then((res?) => {
+      adminApi().index(state.tableData.param).then((res?) => {
         state.tableData.data = res.data.data
         state.tableData.total = res.data.total
         state.tableData.loading = false
@@ -179,7 +179,7 @@ export default defineComponent({
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        adminApi().deleteAdmin(row).then((res?) => {
+        adminApi().destroy(row).then((res?) => {
           state.deleteBtnLoading = false
           proxy.$notify.success({
             title: '成功',

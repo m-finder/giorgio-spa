@@ -8,7 +8,7 @@
         "vue",
         "spa"
     ],
-    "version": "v1.0",
+    "version": "v1.1",
     "license": "MIT",
     "authors": [
         {
@@ -27,7 +27,8 @@
     },
     "autoload": {
         "psr-4": {
-            "GiorgioSpa\\": "src"
+            "GiorgioSpa\\": "src",
+            "GiorgioSpa\\Database\\Seeders\\": "database/seeders/"
         },
         "files": [
             "src/helpers.php"
