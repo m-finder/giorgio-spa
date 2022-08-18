@@ -28,8 +28,7 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('abc123'),
         ]);
 
-        Role::query()->truncate();
-        $role = Role::query()->create([
+        $role = Role::query()->updateOrCreate([
             'name' => '超级管理员',
             'guard_name' => 'custom',
             'is_super' => true

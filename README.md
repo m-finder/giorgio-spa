@@ -8,8 +8,10 @@
 </p>
 
 ## About Giorgio Spa
-Giorgio spa is a single page admin package, based on Laravel, vite Vue typeScript, Element-plus
+Giorgio spa is a single page admin package, based on Laravel, Vite, Vue3 typeScript, Element-plus
 
+#### Preview
+![](https://repository-images.githubusercontent.com/247018339/204baa68-7615-4332-9b9b-fd7d89204c3c)
 
 
 #### Demo
@@ -17,7 +19,7 @@ Giorgio spa is a single page admin package, based on Laravel, vite Vue typeScrip
 
 #### Account
 ```
-URL: http://localhost/admin
+URL: http://domain/admin
 Account: admin
 Password: abc123
 ```
@@ -29,15 +31,25 @@ cd website
 edit .env sql config
 composer require wu/giorgio-spa
 php artisan spa:install
+php artisan spa:init
 npm install && npm run dev
 php artisan serve
 ```
 
 #### 注意事项
 
+> 只能在全新项目安装
+> 
 > 配置文件需要根据实际情况更改
 > 
-> 只在 laravel 9.19做过验证
+> 只在 laravel 9.19 做过验证
+> 
+> 如果报错 WebSocket connection to 'ws://laravel.test:5173/' failed，在 .env 添加如下两行，并根据实际情况修改：
+
+```
+VITE_KEY_PATH='.config/valet/Certificates/laravel9.test.key'
+VITE_CERT_PATH='.config/valet/Certificates/laravel9.test.crt'
+```
 
 #### 鸣谢
 

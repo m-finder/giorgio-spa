@@ -38,17 +38,17 @@
         <el-table-column prop="created_at" label="创建时间" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作" width="150">
           <template #default="scope">
-            <el-button v-auth="'roles.update'" size="small" text type="primary" @click="onOpenEditRole(scope.row)">修改</el-button>
-            <el-button v-auth="'roles.auth'" size="small" text type="primary" @click="onOpenAuthRole(scope.row)">授权</el-button>
+            <el-button v-auth="'roles.update'" size="small" text type="primary" @click="onOpenEdit(scope.row)">修改</el-button>
+            <el-button v-auth="'roles.auth'" size="small" text type="primary" @click="onOpenAuth(scope.row)">授权</el-button>
             <el-button v-auth="'roles.destroy'" size="small" text type="danger" v-loading="deleteBtnLoading" @click="onRowDel(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <pagination v-show="tableData.total>0" :total="tableData.total" :page.sync="tableData.param.page" :limit.sync="tableData.param.limit" @pagination="getList"/>
     </el-card>
-    <AddRole ref="addRoleRef" @getList="getList"/>
-    <EditRole ref="editRoleRef" @getList="getList"/>
-    <AuthRole ref="authRoleRef" @getList="getList"/>
+    <AddRole ref="addRef" @getList="getList"/>
+    <EditRole ref="editRef" @getList="getList"/>
+    <AuthRole ref="authRef" @getList="getList"/>
   </div>
 </template>
 
@@ -96,9 +96,9 @@ export default defineComponent({
   name: 'systemRole',
   components: {AddRole, EditRole, AuthRole, Pagination},
   setup() {
-    const addRoleRef = ref();
-    const editRoleRef = ref();
-    const authRoleRef = ref();
+    const addRef = ref();
+    const editRef = ref();
+    const authRef = ref();
     const {proxy} = <any>getCurrentInstance();
     const state = reactive<TableDataState>({
       tableData: {
@@ -117,7 +117,7 @@ export default defineComponent({
     // 获取列表
     const getList = () => {
       state.tableData.loading = true
-      roleApi().getRoles(state.tableData.param).then((res?) => {
+      roleApi().index(state.tableData.param).then((res?) => {
         state.tableData.data = res.data.data
         state.tableData.total = res.data.total
         state.tableData.loading = false
@@ -129,15 +129,15 @@ export default defineComponent({
     }
     // 打开新增角色弹窗
     const onOpenAddRole = () => {
-      addRoleRef.value.openDialog();
+      addRef.value.openDialog();
     };
     // 打开修改角色弹窗
-    const onOpenEditRole = (row: Object) => {
-      editRoleRef.value.openDialog(row);
+    const onOpenEdit = (row: Object) => {
+      editRef.value.openDialog(row);
     };
 
-    const onOpenAuthRole = (row: Object) => {
-      authRoleRef.value.openDialog(row);
+    const onOpenAuth = (row: Object) => {
+      authRef.value.openDialog(row);
     }
     // 删除角色
     const onRowDel = (row: any) => {
@@ -176,12 +176,12 @@ export default defineComponent({
     }
 
     return {
-      addRoleRef,
-      editRoleRef,
-      authRoleRef,
+      addRef,
+      editRef,
+      authRef,
       onOpenAddRole,
-      onOpenEditRole,
-      onOpenAuthRole,
+      onOpenEdit,
+      onOpenAuth,
       onRowDel,
       getList,
       resetFilter,

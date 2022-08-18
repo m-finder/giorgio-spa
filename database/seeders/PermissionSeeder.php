@@ -45,7 +45,6 @@ class PermissionSeeder extends Seeder
             if (!isset($methods[$nameArray[1]])) {
                 abort(400,$nameArray[1] . '未在method中配置');
             }
-            Permission::query()->truncate();
             Permission::query()->updateOrCreate([
                 'name' => $name,
                 'type' => $guard

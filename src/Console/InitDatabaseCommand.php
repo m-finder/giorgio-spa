@@ -12,7 +12,7 @@ class InitDatabaseCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'init:data';
+    protected $signature = 'spa:init';
 
     /**
      * The console command description.
@@ -24,7 +24,11 @@ class InitDatabaseCommand extends Command
 
     public function handle()
     {
-        $this->call('migrate');
-        $this->call('db:seed', ['--class' => DatabaseSeeder::class]);
+        $this->call('migrate', [
+                '--path' => '/database/migrations/admin/'
+        ]);
+        $this->call('db:seed', [
+            '--class' => DatabaseSeeder::class
+        ]);
     }
 }

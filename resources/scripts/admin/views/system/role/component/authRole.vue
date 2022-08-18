@@ -142,7 +142,7 @@ export default defineComponent({
           return e
         }
       })
-      roleApi().authRole(state.ruleForm).then((res?) => {
+      roleApi().auth(state.ruleForm).then((res?) => {
         proxy.$notify.success({
           title: '成功',
           message: '操作成功'

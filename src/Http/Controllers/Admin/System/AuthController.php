@@ -5,17 +5,13 @@ namespace GiorgioSpa\Http\Controllers\Admin\System;
 use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Models\PersonalAccessToken;
-use GiorgioSpa\Services\Tencent\SmsService;
+use GiorgioSpa\Services\ChuangLan\SmsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    /**
-     * @throws BadRequestException
-     * @throws ForbiddenException
-     * @throws NotFoundException
-     */
+
     public function login(Request $request): JsonResponse
     {
         $data = $request->all();
@@ -43,18 +39,18 @@ class AuthController extends Controller
 
         if($request->get('is_password') === true){
             if(!password_verify($request->get('password'), $admin->getAttribute('password'))){
-                throw new BadRequestException('密码错误');
+                abort(400, '密码错误');
             }
         }
 
         auth()->login($admin);
 
         if (admin()->isDisabled()) {
-            throw new ForbiddenException('账号已禁用,请联系管理员解禁');
+            abort(403, '账号已禁用,请联系管理员解禁');
         }
 
         if ($request->get('is_password') !== true && !SmsService::validateSmsCode(admin()->getPhone(), $data['sms_code'])) {
-            throw new BadRequestException('短信验证码错误');
+            abort(400, '短信验证码错误');
         }
 
         return $this->loginSucceeded();
@@ -82,9 +78,6 @@ class AuthController extends Controller
         return $this->success();
     }
 
-    /**
-     * @throws NotFoundException
-     */
     protected function validateAdmin(Request $request)
     {
         $account = $request->get('account');
@@ -93,7 +86,7 @@ class AuthController extends Controller
         })->first();
 
         if(empty($admin)){
-            throw new NotFoundException('账户不存在');
+            abort(404, '账户不存在');
         }
         return $admin;
     }

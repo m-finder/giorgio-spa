@@ -11,41 +11,41 @@ import request from '@admin/utils/request';
  */
 export function roleApi() {
     return {
-        getRoles: (query: any) => {
+        index: (query: any) => {
             return request({
                 url: '/admin/roles',
                 method: 'get',
                 params: query
             })
         },
-        getRoleList: (query: any) => {
+        list: (query: any) => {
             return request({
                 url: '/admin/roles/list',
                 method: 'get',
                 params: query
             })
         },
-        createRole: (data: Object) => {
+        store: (data: Object) => {
             return request({
                 url: '/admin/roles',
                 method: 'post',
                 data
             })
         },
-        updateRole: (data: any) => {
+        update: (data: any) => {
             return request({
                 url: '/admin/roles/' + data.id,
                 method: 'put',
                 data
             })
         },
-        deleteRole: (data: any) => {
+        destroy: (data: any) => {
             return request({
                 url: '/admin/roles/' + data.id,
                 method: 'delete',
             })
         },
-        authRole: (data: any) => {
+        auth: (data: any) => {
             return request({
                 url: '/admin/roles/' + data.id + '/auth',
                 method: 'patch',

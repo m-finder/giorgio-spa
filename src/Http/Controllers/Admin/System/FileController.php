@@ -5,7 +5,6 @@ namespace GiorgioSpa\Http\Controllers\Admin\System;
 use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Services\Tencent\CosService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
