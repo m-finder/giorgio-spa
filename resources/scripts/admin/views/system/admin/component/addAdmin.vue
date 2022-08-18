@@ -122,7 +122,7 @@ export default defineComponent({
       proxy.$refs.ruleFormRef.validate((valid: boolean) => {
         if (valid) {
           state.loading = true
-          adminApi().createAdmin(state.ruleForm).then((res?) => {
+          adminApi().store(state.ruleForm).then((res?) => {
             proxy.$notify.success({
               title: '成功',
               message: '操作成功'
@@ -148,7 +148,7 @@ export default defineComponent({
 
     // 获取角色列表
     const getRoleList = (query) => {
-      roleApi().getRoleList({name: query, limit: 100, page: 1}).then((res?) => {
+      roleApi().list({name: query, limit: 100, page: 1}).then((res?) => {
         state.roleList = res.data.data
         state.selectLoading = false
       }).catch((err?) => {

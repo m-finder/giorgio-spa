@@ -6,13 +6,14 @@ use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Models\Role;
 use GiorgioSpa\Rules\NumericLength;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
 
-	public function index(Request $request): \Illuminate\Http\JsonResponse
+	public function index(Request $request): JsonResponse
 	{
 		$res = Admin::query()->with('roles')->filter($request->all())
 			->orderByDesc('id')
@@ -20,7 +21,7 @@ class AdminController extends Controller
 		return $this->success($res);
 	}
 
-	public function list(Request $request): \Illuminate\Http\JsonResponse
+	public function list(Request $request): JsonResponse
 	{
 		$res = Admin::query()->with('roles')
 			->filter($request->all())
@@ -30,7 +31,7 @@ class AdminController extends Controller
 		return $this->success($res);
 	}
 
-	public function store(Request $request): \Illuminate\Http\JsonResponse
+	public function store(Request $request): JsonResponse
 	{
 		$data = $request->all();
 		$this->validate($request, [
@@ -83,7 +84,7 @@ class AdminController extends Controller
 		return $this->success();
 	}
 
-	public function update(Request $request, Admin $admin): \Illuminate\Http\JsonResponse
+	public function update(Request $request, Admin $admin): JsonResponse
 	{
 		$data = $request->all();
 		$this->validate($request, [
@@ -159,10 +160,10 @@ class AdminController extends Controller
 		return $this->success();
 	}
 
-	public function destroy(Admin $admin): \Illuminate\Http\JsonResponse
+	public function destroy(Admin $admin): JsonResponse
 	{
 		if ($admin->isSuper()) {
-			abort(400, '超级管理员禁止删除');
+			abort(403, '超级管理员禁止删除');
 		}
 		$admin->delete();
 		return $this->success();

@@ -40,7 +40,7 @@ Route::prefix(config('giorgio.prefix'))->group(function () {
     Route::post('verification_code', [SmsCodeController::class, 'store'])->name('sms.code');
 
     Route::group([
-        'middleware' => ['auth:sanctum', 'qb.permission']
+        'middleware' => ['auth:sanctum', 'giorgio.permission']
     ], function () {
 
         Route::patch('password/{admin}', [PasswordController::class, 'reset'])->name('passwords.reset');
