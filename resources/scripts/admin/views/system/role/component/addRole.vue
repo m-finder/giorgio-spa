@@ -1,6 +1,6 @@
 <template>
   <div class="system-add-role-container">
-    <el-dialog title="新增角色" v-model="isShowDialog" width="769px" @close="closeDialog">
+    <el-dialog :close-on-click-modal="false" title="新增角色" v-model="isShowDialog" width="769px" @close="closeDialog">
       <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" size="default" label-width="90px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">

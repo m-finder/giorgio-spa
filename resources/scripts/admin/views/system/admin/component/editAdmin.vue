@@ -1,6 +1,6 @@
 <template>
   <div class="system-edit-user-container">
-    <el-dialog title="修改" v-model="isShowDialog" width="769px" @close="closeDialog">
+    <el-dialog :close-on-click-modal="false" title="修改" v-model="isShowDialog" width="769px" @close="closeDialog">
       <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" size="default" label-width="90px">
         <el-row :gutter="35">
           <el-col :span="24" class="mb20">
@@ -105,7 +105,7 @@ export default defineComponent({
 
     // 打开弹窗
     const openDialog = (row: ruleFormState) => {
-      state.ruleForm = row;
+      state.ruleForm = Object.assign({}, row);
       state.ruleForm.role_ids = []
       if (row.roles) {
         row.roles.forEach((item) => {
@@ -153,7 +153,7 @@ export default defineComponent({
     }
 
     // 获取角色列表
-    const getRoleList = (query) => {
+    const getRoleList = (query: any) => {
       roleApi().list({name: query, limit: 100, page: 1}).then((res?) => {
         state.roleList = res.data.data
         state.selectLoading = false
