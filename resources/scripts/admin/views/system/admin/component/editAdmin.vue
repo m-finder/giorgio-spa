@@ -71,7 +71,7 @@ interface ruleFormState {
   status: string | undefined;
   email: string | undefined;
   avatar: string | undefined;
-  role_ids: Array | undefined;
+  role_ids: Array<any> | undefined;
 }
 
 

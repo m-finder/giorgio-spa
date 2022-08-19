@@ -147,7 +147,7 @@ export default defineComponent({
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        roleApi().deleteRole(row).then((res?) => {
+        roleApi().destroy(row).then((res?) => {
           state.deleteBtnLoading = false
           proxy.$notify.success({
             title: '成功',
