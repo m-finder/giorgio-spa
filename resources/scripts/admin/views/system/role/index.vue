@@ -1,29 +1,33 @@
 <template>
   <div class="system-role-container">
     <el-card shadow="hover">
-      <div class="system-user-search mb15">
-        <el-input size="default" v-model="tableData.param.name" placeholder="请输入角色名称" clearable style="max-width: 180px"/>
-        <el-button-group class="ml10">
-          <el-button size="mini" v-auth="'roles.index'" type="primary" @click="getList">
-            <el-icon>
-              <ele-Search/>
-            </el-icon>
-            查询
-          </el-button>
-          <el-button size="mini" v-auth="'roles.index'" type="success" @click="resetFilter">
-            <el-icon>
-              <ele-Close/>
-            </el-icon>
-            重置
-          </el-button>
-          <el-button size="mini" v-auth="'roles.store'" type="primary" @click="onOpenAddRole">
-            <el-icon>
-              <ele-FolderAdd/>
-            </el-icon>
-            添加
-          </el-button>
-        </el-button-group>
-      </div>
+      <el-row class="mb15" :gutter="20">
+        <el-col :span="4" :xs="24" class="mb10">
+          <el-input size="default" v-model="tableData.param.name" placeholder="请输入名称" clearable style="max-width: 180px"/>
+        </el-col>
+        <el-col :span="6" :xs="24" class="mb10">
+          <el-button-group>
+            <el-button size="mini" v-auth="'roles.index'" type="primary" @click="getList">
+              <el-icon>
+                <ele-Search/>
+              </el-icon>
+              查询
+            </el-button>
+            <el-button size="mini" v-auth="'roles.index'" type="success" @click="resetFilter">
+              <el-icon>
+                <ele-Close/>
+              </el-icon>
+              重置
+            </el-button>
+            <el-button size="mini" v-auth="'roles.store'" type="primary" @click="onOpenAddRole">
+              <el-icon>
+                <ele-FolderAdd/>
+              </el-icon>
+              添加
+            </el-button>
+          </el-button-group>
+        </el-col>
+      </el-row>
 
       <el-table v-loading="tableData.loading" :data="tableData.data" style="width: 100%">
         <el-table-column prop="id" label="ID" width="60"/>
