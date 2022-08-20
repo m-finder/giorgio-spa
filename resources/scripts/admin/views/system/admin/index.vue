@@ -2,37 +2,38 @@
   <div class="system-user-container">
     <el-card shadow="hover">
       <div class="system-user-search mb15">
-        <el-row :gutter="10">
-          <el-col :xs="24" :sm="4">
+        <el-row :gutter="10" class="mb15">
+          <el-col :xs="24" :sm="4" class="mb10">
             <el-input size="default" v-model="tableData.param.name" placeholder="请输入名称" style="max-width: 180px"></el-input>
           </el-col>
-          <el-col :xs="24" :sm="4">
+          <el-col :xs="24" :sm="4" class="mb10">
             <el-input size="default" v-model="tableData.param.phone" placeholder="请输入手机号" style="max-width: 180px"></el-input>
           </el-col>
-          <el-col :xs="24" :sm="4">
+          <el-col :xs="24" :sm="4" class="mb10">
             <el-input size="default" v-model="tableData.param.email" placeholder="请输入邮箱" style="max-width: 180px"></el-input>
           </el-col>
-
-          <el-button-group class="ml10">
-            <el-button size="mini" v-auth="'admins.index'" type="primary" @click="getList">
-              <el-icon>
-                <ele-Search/>
-              </el-icon>
-              查询
-            </el-button>
-            <el-button size="mini" v-auth="'admins.index'" type="success" @click="resetFilter">
-              <el-icon>
-                <ele-Close/>
-              </el-icon>
-              重置
-            </el-button>
-            <el-button size="mini" v-auth="'admins.store'" type="primary" @click="onOpenAddUser">
-              <el-icon>
-                <ele-FolderAdd/>
-              </el-icon>
-              添加
-            </el-button>
-          </el-button-group>
+          <el-col :span="6" :xs="24" class="mb10">
+            <el-button-group >
+              <el-button size="mini" v-auth="'admins.index'" type="primary" @click="getList">
+                <el-icon>
+                  <ele-Search/>
+                </el-icon>
+                查询
+              </el-button>
+              <el-button size="mini" v-auth="'admins.index'" type="success" @click="resetFilter">
+                <el-icon>
+                  <ele-Close/>
+                </el-icon>
+                重置
+              </el-button>
+              <el-button size="mini" v-auth="'admins.store'" type="primary" @click="onOpenAddUser">
+                <el-icon>
+                  <ele-FolderAdd/>
+                </el-icon>
+                添加
+              </el-button>
+            </el-button-group>
+          </el-col>
         </el-row>
 
       </div>

@@ -16,6 +16,7 @@
       :disabled="disabled"
       :multiple="multiple"
       :placeholder="placeholder"
+      :style="'width:' + width"
   >
     <slot>
       <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
@@ -66,6 +67,10 @@ export default {
     valueKey: {
       type: String,
       default: ''
+    },
+    width: {
+      type: String,
+      default: '180px'
     }
   },
   setup(props: any, { emit }) {
