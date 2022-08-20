@@ -1,6 +1,6 @@
 <template>
   <div class="system-add-user-container">
-    <el-dialog title="新增" v-model="isShowDialog" width="769px" @close="closeDialog">
+    <el-dialog :close-on-click-modal="false" title="新增" v-model="isShowDialog" width="769px" @close="closeDialog">
       <el-form :model="ruleForm" :rules="rules" ref="ruleFormRef" size="default" label-width="90px">
         <el-row :gutter="35">
           <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
