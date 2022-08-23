@@ -209,9 +209,9 @@ export default defineComponent({
         type: 'warning',
       }).then(() => {
         passwordApi().resetPassword(row).then(res => {
-              proxy.$notify.success({
-                title: '成功',
-                message: '重置成功,新密码为 ' + res.data.password
+              ElMessageBox.confirm(`重置成功,新密码为：${res.data.password}`, '提示', {
+                confirmButtonText: '确认',
+                type: 'success',
               })
             }).catch(err => {
               proxy.$notify.error({
