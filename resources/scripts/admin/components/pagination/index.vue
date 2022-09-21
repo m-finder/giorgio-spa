@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from "vue";
+import {computed, defineComponent, reactive} from "vue";
 
 export default defineComponent({
   name: "pagination",
@@ -55,45 +55,47 @@ export default defineComponent({
       default: false
     }
   },
-  computed: {
-    currentPage: {
+  setup(props: any, {emit}) {
+
+    const currentPage = computed({
       get() {
-        return this.page
+        return props.page
       },
-      set(val) {
+      set(val: number) {
         emit('update:page', val)
       }
-    },
-    pageSize: {
+    })
+
+    const pageSize = computed({
       get() {
-        return this.limit
+        return props.limit
       },
-      set(val) {
+      set(val: number) {
         emit('update:limit', val)
       }
-    }
-  },
-  setup(props) {
+    })
 
     // 分页改变
     const onHandleSizeChange = (val: number) => {
-      emit('pagination', {page: this.currentPage, limit: val});
-      if (this.autoScroll) {
+      emit('pagination', {page: currentPage, limit: val});
+      if (props.autoScroll) {
         scrollTo(0, 800)
       }
     };
 
     // 分页改变
     const onHandleCurrentChange = (val: number) => {
-      emit('pagination', {page: val, limit: this.pageSize})
-      if (this.autoScroll) {
+      emit('pagination', {page: val, limit: pageSize})
+      if (props.autoScroll) {
         scrollTo(0, 800)
       }
     };
 
     return {
       onHandleSizeChange,
-      onHandleCurrentChange
+      onHandleCurrentChange,
+      currentPage,
+      pageSize,
     }
   },
 });
