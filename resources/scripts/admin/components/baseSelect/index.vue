@@ -16,10 +16,9 @@
       :disabled="disabled"
       :multiple="multiple"
       :placeholder="placeholder"
-      :style="'width:' + width"
   >
     <slot>
-      <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id"></el-option>
+      <el-option v-for="item in options" :key="item.id" :label="item.name || item.id" :value="item.id" :disabled="disabledOption(item.id)"></el-option>
     </slot>
   </el-select>
 </template>
@@ -64,25 +63,27 @@ export default {
       type: Boolean,
       default: false
     },
+    allData: {
+      type: Array,
+      default: function (){
+        return []
+      }
+    },
     valueKey: {
       type: String,
       default: ''
-    },
-    width: {
-      type: String,
-      default: '180px'
     }
   },
-  setup(props: any, { emit }) {
+  setup: function (props: any, {emit}) {
     // 搜索方法
     const remoteMethod = (query: any) => {
-      if (query) {
-        emit('remote-method', query)
-      }
+      emit('remote-method', query)
     };
     // 初始搜索第一页
     const handleFocus = () => {
-      emit('remote-method')
+      if(props.options.length === 0){
+        emit('remote-method')
+      }
     };
     // 选中赋值方法
     const handleChange = (query: any) => {
@@ -95,8 +96,8 @@ export default {
       emit('handle-change')
     };
     // 查询方法防抖
-    const methodAntiShake = (fun) => {
-      let timeout = null
+    const methodAntiShake = (fun: any) => {
+      let timeout: any = null
       return function () {
         clearTimeout(timeout)
         timeout = setTimeout(() => {
@@ -104,12 +105,32 @@ export default {
         }, 1000)
       }
     }
+
+    // 选项禁用
+    const disabledOption = (id: number) => {
+      let status = false
+      props.allData.forEach((item: any) => {
+        if (item instanceof Object) {
+          if (item.id === id) {
+            status = true;
+          }
+        } else {
+          if (item === id) {
+            status = true;
+          }
+        }
+
+      })
+      return status
+    }
+
     return {
       remoteMethod,
       handleFocus,
       handleChange,
       handleClear,
-      methodAntiShake
+      methodAntiShake,
+      disabledOption
     }
   },
 }
