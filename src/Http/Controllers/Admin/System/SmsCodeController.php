@@ -3,18 +3,14 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use GiorgioSpa\Models\Admin;
+use App\Models\Admin;
 use GiorgioSpa\Services\ChuangLan\SmsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SmsCodeController extends Controller
 {
-    /**
-     * @throws NotFoundException
-     * @throws \App\Exceptions\TooManyRequestException
-     * @throws \Exception
-     */
+
     public function store(Request $request): JsonResponse
     {
         $data = $request->all();
@@ -31,7 +27,7 @@ class SmsCodeController extends Controller
                 ->first();
 
             if(empty($admin)){
-                throw new NotFoundException('账户不存在');
+                abort(404, '账户不存在');
             }
         }
 

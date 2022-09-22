@@ -3,7 +3,7 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use GiorgioSpa\Models\Admin;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 

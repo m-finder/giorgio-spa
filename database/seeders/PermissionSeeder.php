@@ -1,8 +1,8 @@
 <?php
 
-namespace GiorgioSpa\Database\Seeders;
+namespace Database\Seeders;
 
-use GiorgioSpa\Models\Permission;
+use App\Models\Permission;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

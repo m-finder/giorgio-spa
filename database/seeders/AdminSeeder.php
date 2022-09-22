@@ -1,9 +1,9 @@
 <?php
 
-namespace GiorgioSpa\Database\Seeders;
+namespace Database\Seeders;
 
-use GiorgioSpa\Models\Admin;
-use GiorgioSpa\Models\Role;
+use App\Models\Admin;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder

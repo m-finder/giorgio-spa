@@ -1,8 +1,7 @@
 <?php
 
-namespace GiorgioSpa\Models\Filters;
+namespace App\Models\Filters;
 
-use GiorgioSpa\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 
 trait RoleFilter

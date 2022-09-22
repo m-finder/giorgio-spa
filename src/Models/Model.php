@@ -1,6 +1,6 @@
 <?php
 
-namespace GiorgioSpa\Models;
+namespace App\Models;
 
 use Illuminate\Support\Carbon;
 

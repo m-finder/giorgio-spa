@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Providers;
 
-use GiorgioSpa\Models\PersonalAccessToken;
+use App\Models\PersonalAccessToken;
 use GiorgioSpa\Console\InitDatabaseCommand;
 use GiorgioSpa\Console\InstallCommand;
 use GiorgioSpa\Http\Middleware\GiorgioSpaPermission;
@@ -81,6 +81,7 @@ class GiorgioServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../config' => config_path()]);
         $this->publishes([__DIR__ . '/../../routes/giorgio.php' => base_path('routes/giorgio.php')]);
         $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations/admin')]);
+        $this->publishes([__DIR__ . '/../../database/seeders' => database_path('seeders')]);
         $this->publishes([__DIR__ . '/../../resources' => base_path('resources')], 'resources');
         $this->publishes([__DIR__ . '/../../src/Exceptions/Handler.php' => base_path('app/Exceptions/Handler.php')]);
         $this->publishes([__DIR__ . '/../../spa-stubs' => base_path('')]);

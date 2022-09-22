@@ -31,7 +31,7 @@ export function useLoginApi() {
 		},
 		signOut: (params: object) => {
 			return request({
-				url: '/user/logout',
+				url: '/admin/logout',
 				method: 'post',
 				data: params,
 			});

@@ -1,6 +1,6 @@
 <?php
 
-namespace GiorgioSpa\Models;
+namespace App\Models;
 
 use GiorgioSpa\Models\Filters\RoleFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

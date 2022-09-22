@@ -1,6 +1,6 @@
 <?php
 
-namespace GiorgioSpa\Models\Filters;
+namespace App\Models\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;

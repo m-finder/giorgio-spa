@@ -2,9 +2,7 @@
 
 namespace GiorgioSpa\Http\Middleware;
 
-use GiorgioSpa\Models\Admin;
-use GiorgioSpa\Models\Permission;
-use GiorgioSpa\Models\Role;
+use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
