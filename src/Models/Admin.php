@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use GiorgioSpa\Models\Filters\AdminFilter;
+use App\Models\Filters\AdminFilter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;

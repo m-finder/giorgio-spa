@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use GiorgioSpa\Models\Filters\RoleFilter;
+use App\Models\Filters\RoleFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
