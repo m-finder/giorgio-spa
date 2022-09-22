@@ -95,7 +95,7 @@ class GiorgioServiceProvider extends ServiceProvider
 
         //自定义token是否过期的方法
         Sanctum::authenticateAccessTokensUsing(function ($accessToken, $isValid){
-            $expiration = config('sanctum.expiration');
+            $expiration = config('sanctum.expiration', 120);
             $time = $accessToken->last_used_at??$accessToken->created_at;
             return $time->gt(now()->subMinutes($expiration));
         });
