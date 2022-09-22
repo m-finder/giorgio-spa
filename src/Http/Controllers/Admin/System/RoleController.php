@@ -3,10 +3,10 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use App\Models\ModelHasRole;
-use App\Models\Permission;
-use App\Models\Role;
-use App\Models\RoleHasPermission;
+use GiorgioSpa\Models\ModelHasRole;
+use GiorgioSpa\Models\Permission;
+use GiorgioSpa\Models\Role;
+use GiorgioSpa\Models\RoleHasPermission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;

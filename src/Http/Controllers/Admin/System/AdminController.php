@@ -3,8 +3,8 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\Role;
+use GiorgioSpa\Models\Admin;
+use GiorgioSpa\Models\Role;
 use GiorgioSpa\Rules\NumericLength;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

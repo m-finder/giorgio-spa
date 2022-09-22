@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace GiorgioSpa\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Carbon;

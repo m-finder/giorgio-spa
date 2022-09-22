@@ -81,8 +81,6 @@ class GiorgioServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../config' => config_path()]);
         $this->publishes([__DIR__ . '/../../routes/giorgio.php' => base_path('routes/giorgio.php')]);
         $this->publishes([__DIR__ . '/../../database/migrations' => database_path('migrations/admin')]);
-        $this->publishes([__DIR__ . '/../../database/seeders' => database_path('seeders')]);
-        $this->publishes([__DIR__ . '/../../src/Models' => base_path('app/Models')]);
         $this->publishes([__DIR__ . '/../../resources' => base_path('resources')], 'resources');
         $this->publishes([__DIR__ . '/../../src/Exceptions/Handler.php' => base_path('app/Exceptions/Handler.php')]);
         $this->publishes([__DIR__ . '/../../spa-stubs' => base_path('')]);

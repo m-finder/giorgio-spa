@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace GiorgioSpa\Models;
 
-use App\Models\Filters\RoleFilter;
+use GiorgioSpa\Models\Filters\RoleFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

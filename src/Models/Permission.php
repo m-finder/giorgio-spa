@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace GiorgioSpa\Models;
 
 use App\Models\Filters\PermissionFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -3,7 +3,7 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use App\Models\Permission;
+use GiorgioSpa\Models\Permission;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller

@@ -3,7 +3,7 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use App\Models\Admin;
+use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Services\ChuangLan\SmsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace GiorgioSpa\Models;
 
-use App\Models\Filters\AdminFilter;
+use GiorgioSpa\Models\Filters\AdminFilter;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
