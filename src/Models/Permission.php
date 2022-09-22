@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Models;
 
-use App\Models\Filters\PermissionFilter;
+use GiorgioSpa\Models\Filters\PermissionFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Permission extends \Spatie\Permission\Models\Permission
