@@ -2,6 +2,7 @@
 
 namespace GiorgioSpa\Console;
 
+use GiorgioSpa\Database\Seeders\DatabaseSeeder;
 use Illuminate\Console\Command;
 
 class InitDatabaseCommand extends Command
@@ -26,6 +27,8 @@ class InitDatabaseCommand extends Command
         $this->call('migrate', [
                 '--path' => '/database/migrations/admin/'
         ]);
-        $this->call('db:seed');
+        $this->call('db:seed', [
+            '--class' => DatabaseSeeder::class
+        ]);
     }
 }
