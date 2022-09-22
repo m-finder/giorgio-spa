@@ -3,7 +3,7 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use GiorgioSpa\Models\Permission;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
@@ -11,7 +11,7 @@ class PermissionController extends Controller
 
     public function index(Request $request): \Illuminate\Http\JsonResponse
     {
-        $permissions = Permission::query()
+        $permissions = app(ModelRegister::class)->getPermissionClass()::query()
             ->filter($request->all())
             ->orderBy('name')
             ->get();

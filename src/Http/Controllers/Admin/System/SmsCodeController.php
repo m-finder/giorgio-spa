@@ -3,8 +3,8 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Services\ChuangLan\SmsService;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class SmsCodeController extends Controller
         ]);
 
         if(isset($data['is_login'])){
-            $admin = Admin::query()->where('phone','=',$data['account'])
+            $admin = app(ModelRegister::class)->getAdminClass()::query()->where('phone','=',$data['account'])
                 ->orWhere('name','=',$data['account'])
                 ->first();
 
