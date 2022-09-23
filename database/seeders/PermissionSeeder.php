@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Database\Seeders;
 
-use GiorgioSpa\Models\Permission;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
@@ -45,7 +45,7 @@ class PermissionSeeder extends Seeder
             if (!isset($methods[$nameArray[1]])) {
                 abort(400,$nameArray[1] . '未在method中配置');
             }
-            Permission::query()->updateOrCreate([
+            app(ModelRegister::class)->getPermissionClass()::query()->updateOrCreate([
                 'name' => $name,
                 'type' => $guard
             ], [

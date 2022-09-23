@@ -6,6 +6,7 @@ use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Models\PersonalAccessToken;
 use GiorgioSpa\Services\ChuangLan\SmsService;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -81,7 +82,7 @@ class AuthController extends Controller
     protected function validateAdmin(Request $request)
     {
         $account = $request->get('account');
-        $admin = Admin::query()->where(function ($query) use($account){
+        $admin = app(ModelRegister::class)->getAdminClass()::query()->where(function ($query) use($account){
             return $query->where('phone', '=', $account)->orWhere('name', '=', $account);
         })->first();
 

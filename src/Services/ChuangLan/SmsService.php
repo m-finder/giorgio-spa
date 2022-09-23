@@ -1,4 +1,5 @@
 <?php
+
 namespace GiorgioSpa\Services\ChuangLan;
 
 use Illuminate\Support\Facades\Cache;
@@ -17,19 +18,22 @@ class SmsService
      * @param $phone
      * @param int $expired
      * @param string $suffix
-     * @throws \Exception
      */
     public static function sendSmsCode($phone, int $expired = 5, string $suffix = self::CODE_SUFFIX)
     {
         $template = self::VERIFICATION_CODE;
         $bool = self::canSendCode($phone);
         if (!$bool) {
-            abort(429,'短信发送频繁,请稍后重试');
+            abort(429, '短信发送频繁,请稍后重试');
         }
         $randomCode = config('app.env') == 'local' ? '1234' : random_int(1000, 9999);
         $template = self::SIGN_NAME . Str::replaceArray('{s}', [$randomCode, $expired], $template);
         self::setCacheCode($phone, $randomCode, $expired, $suffix);
-        self::send($phone, $template);
+        try {
+            self::send($phone, $template);
+        } catch (\Exception $e) {
+            abort(500, $e->getMessage());
+        }
     }
 
     /**
@@ -37,7 +41,6 @@ class SmsService
      * @param $smsCode
      * @param string $suffix
      * @return bool
-     * @throws \Psr\SimpleCache\InvalidArgumentException
      */
     public static function validateSmsCode($phone, $smsCode, string $suffix = self::CODE_SUFFIX): bool
     {
@@ -52,13 +55,16 @@ class SmsService
     /**
      * @param $phone
      * @param string $password
-     * @throws \Exception
      */
     public static function sendInitPassword($phone, string $password = 'abc123')
     {
         $template = self::INIT_PASSWORD;
         $template = self::SIGN_NAME . Str::replaceArray('{s}', [$password], $template);
-        self::send($phone, $template);
+        try {
+            self::send($phone, $template);
+        } catch (\Exception $e) {
+            abort(500, $e->getMessage());
+        }
     }
 
     protected static function setCacheCode($key, $code, $expired, $suffix = self::CODE_SUFFIX)
@@ -87,8 +93,10 @@ class SmsService
             info('测试环境短信模拟发送', ['phone' => $phone, 'template' => $template]);
             return;
         }
-        $account = config('chuang_lan.account'); // API账号
-        $password = config('chuang_lan.password'); // API密码
+        // API账号
+        $account = config('chuang_lan.account');
+        // API密码
+        $password = config('chuang_lan.password');
         info('创蓝短信请求', ['phone' => $phone, 'msg' => $template]);
         $res = Http::withHeaders([
             'Content-Type' => 'application/json'

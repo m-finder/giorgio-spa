@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
-use GiorgioSpa\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use GiorgioSpa\Services\Tencent\CosService;
 use Illuminate\Http\Request;
 

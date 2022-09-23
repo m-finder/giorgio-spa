@@ -2,8 +2,7 @@
 
 namespace GiorgioSpa\Database\Seeders;
 
-use GiorgioSpa\Models\Admin;
-use GiorgioSpa\Models\Role;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
@@ -16,19 +15,16 @@ class AdminSeeder extends Seeder
     public function run()
     {
         //清空表 然后再填充数据
-        Admin::query()->truncate();
-        /**
-         * @var Admin $admin
-         * @var Role $role
-         */
-        $admin = Admin::query()->create([
+        app(ModelRegister::class)->getAdminClass()::query()->truncate();
+   
+        $admin = app(ModelRegister::class)->getAdminClass()::query()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'phone' => '18888888888',
             'password' => bcrypt('abc123'),
         ]);
 
-        $role = Role::query()->updateOrCreate([
+        $role = app(ModelRegister::class)->getRoleClass()::query()->updateOrCreate([
             'name' => '超级管理员',
             'guard_name' => 'custom',
             'is_super' => true

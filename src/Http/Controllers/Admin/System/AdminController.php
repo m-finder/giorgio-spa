@@ -6,6 +6,7 @@ use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Models\Role;
 use GiorgioSpa\Rules\NumericLength;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +16,7 @@ class AdminController extends Controller
 
 	public function index(Request $request): JsonResponse
 	{
-		$res = Admin::query()->with('roles')->filter($request->all())
+		$res = app(ModelRegister::class)->getAdminClass()::query()->with('roles')->filter($request->all())
 			->orderByDesc('id')
 			->paginate($request->get('limit'));
 		return $this->success($res);
@@ -23,7 +24,7 @@ class AdminController extends Controller
 
 	public function list(Request $request): JsonResponse
 	{
-		$res = Admin::query()->with('roles')
+		$res = app(ModelRegister::class)->getAdminClass()::query()->with('roles')
 			->filter($request->all())
 			->orderByDesc('id')
 			->select(['id', 'name'])
@@ -65,12 +66,12 @@ class AdminController extends Controller
 			'role_ids.array' => '角色id类型错误'
 		]);
 
-        $defaultRoleIds = Role::query()->where('is_super', '=', 1)->get(['id'])->pluck('id')->toArray();
+        $defaultRoleIds = app(ModelRegister::class)->getRoleClass()::query()->where('is_super', '=', 1)->get(['id'])->pluck('id')->toArray();
 		$intersect = array_intersect($defaultRoleIds, $data['role_ids']);
 		if (!empty($intersect)) {
 			abort(403, '禁止建立系统默认角色');
 		}
-		$countRoleId = Role::query()->whereIn('id', $data['role_ids'])->count('id');
+		$countRoleId = app(ModelRegister::class)->getRoleClass()::query()->whereIn('id', $data['role_ids'])->count('id');
 		if (empty($countRoleId)) {
 			abort(404, '未查询到角色id所属角色');
 		}
@@ -78,7 +79,7 @@ class AdminController extends Controller
 			abort(400, '存在非法角色');
 		}
 
-		$admin = Admin::create($data);
+		$admin = app(ModelRegister::class)->getAdminClass()::create($data);
 		$admin->syncRoles($data['role_ids']);
 
 		return $this->success();
@@ -126,7 +127,7 @@ class AdminController extends Controller
 
 		$origRoleIds = $admin->getRoleIds()->toArray();
 
-        $roleIds = Role::query()->where('is_super', '=', 1)
+        $roleIds = app(ModelRegister::class)->getRoleClass()::query()->where('is_super', '=', 1)
             ->get(['id'])->pluck('id')->toArray();
         $roleIds[] = config('permission.super_admin_role_id.organization');
 
@@ -136,12 +137,12 @@ class AdminController extends Controller
 		if (!empty($diff)) {
 			abort(403, '当前用户为系统角色,禁止修改角色类型');
 		}
-		$roleIds = Role::query()->whereIn('id', $data['role_ids'])->get(['id'])->toArray();
+		$roleIds = app(ModelRegister::class)->getRoleClass()::query()->whereIn('id', $data['role_ids'])->get(['id'])->toArray();
 		if (empty($roleIds)) {
 			abort(400, '未查询到角色id所属角色');
 		}
 
-		if ($data['status'] == Admin::STATUS_DISABLED && $admin->isSuper()) {
+		if ($data['status'] == app(ModelRegister::class)->getAdminClass()::STATUS_DISABLED && $admin->isSuper()) {
 			abort(400, '超管用户不可禁用');
 		}
 
