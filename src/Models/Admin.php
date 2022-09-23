@@ -55,13 +55,12 @@ class Admin extends Authenticatable
      * @param null $merchantId
      * @return NewAccessToken
      */
-    public function createToken(string $name, array $abilities = ['*'], $merchantId = null): NewAccessToken
+    public function createToken(string $name, array $abilities = ['*']): NewAccessToken
     {
         $token = $this->tokens()->create([
             'name' => $name,
             'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'abilities' => $abilities,
-            'merchant_id' => $merchantId,
             'last_used_at' => now()
         ]);
 

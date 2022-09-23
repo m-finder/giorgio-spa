@@ -4,9 +4,9 @@ namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\ModelHasRole;
-use GiorgioSpa\Models\Permission;
 use GiorgioSpa\Models\Role;
 use GiorgioSpa\Models\RoleHasPermission;
+use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -15,7 +15,7 @@ class RoleController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        $res = Role::query()
+        $res = app(ModelRegister::class)->getRoleClass()::query()
             ->with('permissions:id,name')
             ->filter($request->all())
             ->orderByDesc('id')
@@ -25,7 +25,7 @@ class RoleController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $res = Role::query()
+        $res = app(ModelRegister::class)->getRoleClass()::query()
             ->filter($request->all())
             ->orderByDesc('id')
             ->select(['id', 'name'])
@@ -53,7 +53,7 @@ class RoleController extends Controller
         ]);
 
         $data['guard_name'] = 'custom';
-        Role::query()->create($data);
+        app(ModelRegister::class)->getRoleClass()::query()->create($data);
         return $this->success();
     }
 
@@ -76,7 +76,7 @@ class RoleController extends Controller
             'brief.max' => '角色描述长度超限',
         ]);
 
-        $defaultRoleIds = Role::query()
+        $defaultRoleIds = app(ModelRegister::class)->getRoleClass()::query()
             ->where([
                 'is_super' => 1,
             ])->get(['id'])->pluck('id')->toArray();
@@ -91,7 +91,7 @@ class RoleController extends Controller
 
     public function destroy(Role $role): JsonResponse
     {
-        $defaultRoleIds = Role::query()->where([
+        $defaultRoleIds = app(ModelRegister::class)->getRoleClass()::query()->where([
             'is_super' => 1
         ])->get(['id'])->pluck('id')->toArray();
 
@@ -114,7 +114,7 @@ class RoleController extends Controller
             'permissions.array' => '角色权限类型错误',
         ]);
         $oldIds = $role->getAllPermissions()->pluck('id')->toArray();
-        $newIds = Permission::query()->whereIn('name', $data['permissions'])->get()->pluck('id')->toArray();
+        $newIds = app(ModelRegister::class)->getPermissionClass()::query()->whereIn('name', $data['permissions'])->get()->pluck('id')->toArray();
 
         $old = array_diff($oldIds, $newIds);
         $new = array_diff($newIds, $oldIds);

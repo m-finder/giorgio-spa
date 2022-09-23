@@ -1,4 +1,4 @@
-<p align="center"><img src="https://www.m-finder.com/images/avatar.jpeg"></p>
+<p align="center"><img src="https://m-finder.github.io/images/avatar.jpeg"></p>
 <p align="center">
 <img src="https://img.shields.io/badge/Author-m--finder-red">
 <img src="https://img.shields.io/badge/Laravel-9.19.0-red">
@@ -28,7 +28,12 @@ Password: abc123
 ```
 laravel new website
 cd website
-edit .env sql config
+```
+
+
+edit your sql config in env
+
+```
 composer require wu/giorgio-spa
 php artisan spa:install
 php artisan spa:init
