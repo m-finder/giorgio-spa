@@ -23,9 +23,14 @@ class PermissionSeeder extends Seeder
             $action = $route->action;
             $guard = 'admin';
             $name = $action['as'] ?? '';
-            if (!Str::startsWith($uri,'admin') || in_array($name, config('permission.white_list'))) {
+            if(!isset($action['domain'])){
                 continue;
             }
+
+            if ($uri == '/' || in_array($name, config('permission.white_list'))) {
+                continue;
+            }
+            
             if (empty($name)) {
                 continue;
             }
