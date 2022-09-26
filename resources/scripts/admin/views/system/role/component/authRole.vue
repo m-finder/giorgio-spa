@@ -7,7 +7,7 @@
             <el-tree class="menu-data-tree" v-loading="dialogLoading" ref="treeRef" :data="permissions" :default-checked-keys="assignedPermissions" show-checkbox node-key="id" highlight-current>
               <template #default="{ node, data }">
                   <span class="custom-tree-node">
-                    <span>{{ node.label }}</span>
+                    <span>{{ $t(node.label) }}</span>
                     <el-tag v-if="node.api" type="success" size="mini" style="margin: 0 10px;">
                       {{ node.api || '初始' }}
                     </el-tag>
