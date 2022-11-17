@@ -74,7 +74,7 @@ interface LoginMobileState {
 
 // 定义对象与类型
 const dataForm: LoginMobileState = {
-  account: '18016391011',
+  account: '',
 	sms_code: '',
   captcha_key: '',
   captcha: '',
