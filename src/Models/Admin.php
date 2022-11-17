@@ -91,7 +91,7 @@ class Admin extends Authenticatable
 
     public static function create($data): \Illuminate\Database\Eloquent\Model|Admin|\Illuminate\Database\Eloquent\Builder
     {
-        $data['password'] = $data['password'] ?? bcrypt('abc123');
+        $data['password'] = bcrypt($data['password'] ?? 'abc123');
         return self::query()->firstOrCreate([
             'phone' => $data['phone']
         ],$data);
