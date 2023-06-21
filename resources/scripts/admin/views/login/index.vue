@@ -30,7 +30,7 @@ import { toRefs, reactive, computed, defineComponent, onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '@admin/stores/themeConfig';
 import logo from '@admin/assets/logo.png';
-import loginIconTwo from '@admin/assets/bg.png';
+import loginIconTwo from '@admin/assets/bg.svg';
 import { NextLoading } from '@admin/utils/loading';
 import Account from '@admin/views/login/component/account.vue';
 import Mobile from '@admin/views/login/component/mobile.vue';
