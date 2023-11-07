@@ -7,7 +7,7 @@ use Qcloud\Cos\Client;
 class CosService
 {
 
-    public static function save($file,$fileName)
+    public static function save($file,$fileName): string
     {
         $cosClient = new Client(
             [

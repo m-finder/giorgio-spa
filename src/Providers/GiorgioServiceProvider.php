@@ -2,10 +2,10 @@
 
 namespace GiorgioSpa\Providers;
 
-use App\Models\PersonalAccessToken;
 use GiorgioSpa\Console\InitDatabaseCommand;
 use GiorgioSpa\Console\InstallCommand;
 use GiorgioSpa\Http\Middleware\GiorgioSpaPermission;
+use GiorgioSpa\Models\PersonalAccessToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Arr;
 use Illuminate\Support\ServiceProvider;
@@ -29,7 +29,7 @@ class GiorgioServiceProvider extends ServiceProvider
         ]
     ];
 
-    public function boot()
+    public function boot(): void
     {
         $this->registerConfig();
         $this->registerCommand();
@@ -50,14 +50,14 @@ class GiorgioServiceProvider extends ServiceProvider
 
     }
 
-    protected function registerConfig()
+    protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/giorgio.php', 'giorgio');
 
         config(Arr::dot(config('giorgio.auth', []), 'auth.'));
     }
 
-    protected function registerMiddleware()
+    protected function registerMiddleware(): void
     {
         foreach ($this->routeMiddleware as $key => $middleware) {
             app('router')->aliasMiddleware($key, $middleware);
@@ -68,7 +68,7 @@ class GiorgioServiceProvider extends ServiceProvider
         }
     }
 
-    protected function registerCommand()
+    protected function registerCommand(): void
     {
         $this->commands([
             InstallCommand::class,
@@ -76,7 +76,7 @@ class GiorgioServiceProvider extends ServiceProvider
         ]);
     }
 
-    protected function publishing()
+    protected function publishing(): void
     {
         $this->publishes([__DIR__ . '/../../config' => config_path()]);
         $this->publishes([__DIR__ . '/../../routes/giorgio.php' => base_path('routes/giorgio.php')]);
@@ -89,7 +89,7 @@ class GiorgioServiceProvider extends ServiceProvider
         }
     }
 
-    protected function registerTokenCheck()
+    protected function registerTokenCheck(): void
     {
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 

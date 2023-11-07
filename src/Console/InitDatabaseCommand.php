@@ -22,7 +22,7 @@ class InitDatabaseCommand extends Command
     protected $description = 'spa init database';
 
 
-    public function handle()
+    public function handle(): void
     {
         $this->call('migrate', [
                 '--path' => '/database/migrations/admin/'

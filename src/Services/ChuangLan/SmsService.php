@@ -19,17 +19,15 @@ class SmsService
      * @param int $expired
      * @param string $suffix
      */
-    public static function sendSmsCode($phone, int $expired = 5, string $suffix = self::CODE_SUFFIX)
+    public static function sendSmsCode($phone, int $expired = 5, string $suffix = self::CODE_SUFFIX): void
     {
         $template = self::VERIFICATION_CODE;
         $bool = self::canSendCode($phone);
-        if (!$bool) {
-            abort(429, '短信发送频繁,请稍后重试');
-        }
-        $randomCode = config('app.env') == 'local' ? '1234' : random_int(1000, 9999);
-        $template = self::SIGN_NAME . Str::replaceArray('{s}', [$randomCode, $expired], $template);
-        self::setCacheCode($phone, $randomCode, $expired, $suffix);
+        abort_if(!$bool, 429, '短信发送频繁,请稍后重试');
         try {
+            $randomCode = config('app.env') == 'local' ? '1234' : random_int(1000, 9999);
+            $template = self::SIGN_NAME . Str::replaceArray('{s}', [$randomCode, $expired], $template);
+            self::setCacheCode($phone, $randomCode, $expired, $suffix);
             self::send($phone, $template);
         } catch (\Exception $e) {
             abort(500, $e->getMessage());
@@ -56,7 +54,7 @@ class SmsService
      * @param $phone
      * @param string $password
      */
-    public static function sendInitPassword($phone, string $password = 'abc123')
+    public static function sendInitPassword($phone, string $password = 'abc123'): void
     {
         $template = self::INIT_PASSWORD;
         $template = self::SIGN_NAME . Str::replaceArray('{s}', [$password], $template);
@@ -67,7 +65,7 @@ class SmsService
         }
     }
 
-    protected static function setCacheCode($key, $code, $expired, $suffix = self::CODE_SUFFIX)
+    protected static function setCacheCode($key, $code, $expired, $suffix = self::CODE_SUFFIX): void
     {
         if (is_null(Cache::get($key))) {
             Cache::put($key, 1, now()->addMinute());
@@ -87,7 +85,7 @@ class SmsService
     /**
      * @throws \Exception
      */
-    public static function send(string $phone, string $template, string $method = 'post')
+    public static function send(string $phone, string $template, string $method = 'post'): void
     {
         if (config('app.env') == 'local') {
             info('测试环境短信模拟发送', ['phone' => $phone, 'template' => $template]);
@@ -98,6 +96,7 @@ class SmsService
         // API密码
         $password = config('chuang_lan.password');
         info('创蓝短信请求', ['phone' => $phone, 'msg' => $template]);
+
         $res = Http::withHeaders([
             'Content-Type' => 'application/json'
         ])->post(config('chuang_lan.uri'), [
@@ -109,7 +108,6 @@ class SmsService
         $result = $res->body();
         $result = json_decode($result, true);
         abort(400, $result['errorMsg']);
-        info('创蓝短信返回', ['phone' => $phone, 'msg' => $template, 'status' => $res->status(), 'response' => $result]);
     }
 
 }

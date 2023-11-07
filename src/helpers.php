@@ -271,7 +271,7 @@ if (!function_exists('route_group')) {
 //删除文件 $path为绝对路径
 if (!function_exists('del_file')) {
 
-    function del_file($path)
+    function del_file($path): void
     {
         $url = iconv('utf-8', 'gbk', $path);
         if (PATH_SEPARATOR == ':') {
@@ -291,7 +291,7 @@ if (!function_exists('validate_date')) {
      * 日期参数校验
      * @throws Exception
      */
-    function validate_date($date, $format = 'Y-m-d')
+    function validate_date($date, $format = 'Y-m-d'): void
     {
         $validator = Validator::make([
             'date' => $date
