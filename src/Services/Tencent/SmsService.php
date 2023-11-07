@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Services\Tencent;
+namespace GiorgioSpa\Services\Tencent;
 
 
 use Exception;
+use Qcloud\Sms\SmsSingleSender;
 use Illuminate\Support\Facades\Cache;
 use Psr\SimpleCache\InvalidArgumentException;
-use Qcloud\Sms\SmsSingleSender;
 
 class SmsService
 {
@@ -27,20 +27,19 @@ class SmsService
      * @param int $expired
      * @param string $suffix
      */
-    public static function sendSmsCode($phone, int $expired = 5, string $suffix = self::CODE_SUFFIX)
+    public static function sendSmsCode($phone, int $expired = 5, string $suffix = self::CODE_SUFFIX): void
     {
         $bool = self::canSendCode($phone);
-        if (!$bool) {
-            abort(403, '短信发送频繁,请稍后重试');
-        }
-        $randomCode = config('app.env') == 'local' ? '1234' : random_int(1000, 9999);
-        $template = self::VERIFICATION_CODE;
-        $content = [
-            $randomCode,
-            $expired
-        ];
-        self::setCacheCode($phone, $randomCode, $expired, $suffix);
+        abort_if(!$bool, 403, '短信发送频繁,请稍后重试');
+
         try {
+            $randomCode = config('app.env') == 'local' ? '1234' : random_int(1000, 9999);
+            $template = self::VERIFICATION_CODE;
+            $content = [
+                $randomCode,
+                $expired
+            ];
+            self::setCacheCode($phone, $randomCode, $expired, $suffix);
             self::send($phone, $template, $content);
         } catch (Exception $e) {
             abort(403, '短信发送失败，请稍后重试');
@@ -76,7 +75,7 @@ class SmsService
      * @param string $password
      * @throws Exception
      */
-    public static function sendInitPassword($phone, string $password = 'abc123')
+    public static function sendInitPassword($phone, string $password = 'abc123'): void
     {
         $template = self::INIT_PASSWORD;
         $content = [
@@ -88,7 +87,7 @@ class SmsService
     /**
      * @throws Exception
      */
-    protected static function send(string $phone, string $template, array $content)
+    protected static function send(string $phone, string $template, array $content): void
     {
         if (config('app.env') == 'local') {
             info('测试环境短信模拟发送', ['phone' => $phone, 'template' => $template, 'content' => $content]);
@@ -132,7 +131,7 @@ class SmsService
     /**
      * @throws Exception
      */
-    public static function sendWarning($phone)
+    public static function sendWarning($phone): void
     {
         $template = self::WARNING_CODE;
         $content = [];

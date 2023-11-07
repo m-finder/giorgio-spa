@@ -46,9 +46,7 @@ class AuthController extends Controller
 
         auth()->login($admin);
 
-        if (admin()->isDisabled()) {
-            abort(403, '账号已禁用,请联系管理员解禁');
-        }
+        abort_if(admin()->isDisabled(), 403, '账号已禁用,请联系管理员解禁');
 
         if ($request->get('is_password') !== true && !SmsService::validateSmsCode(admin()->getPhone(), $data['sms_code'])) {
             abort(400, '短信验证码错误');
@@ -86,9 +84,7 @@ class AuthController extends Controller
             return $query->where('phone', '=', $account)->orWhere('name', '=', $account);
         })->first();
 
-        if(empty($admin)){
-            abort(404, '账户不存在');
-        }
+        abort_if(empty($admin), 404, '账户不存在');
         return $admin;
     }
 }

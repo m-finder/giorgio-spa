@@ -22,7 +22,7 @@ class InstallCommand extends Command
     protected $description = 'spa installer';
 
 
-    public function handle()
+    public function handle(): void
     {
         $this->info("installing armani admin");
         if (file_exists(config_path('giorgio.php')) && !$this->confirm('files already exists, overwrite?')) {
@@ -32,7 +32,7 @@ class InstallCommand extends Command
         $this->install();
     }
 
-    public function install()
+    public function install(): void
     {
         $this->comment('publishing sources...');
         $this->call('vendor:publish', [

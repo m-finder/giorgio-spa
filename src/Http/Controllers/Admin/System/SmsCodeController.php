@@ -26,9 +26,7 @@ class SmsCodeController extends Controller
                 ->orWhere('name','=',$data['account'])
                 ->first();
 
-            if(empty($admin)){
-                abort(404, '账户不存在');
-            }
+            abort_if(empty($admin),404, '账户不存在');
         }
 
         SmsService::sendSmsCode($data['account']);
