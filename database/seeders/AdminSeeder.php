@@ -12,7 +12,7 @@ class AdminSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         //清空表 然后再填充数据
         app(ModelRegister::class)->getAdminClass()::query()->truncate();

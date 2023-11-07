@@ -4,7 +4,6 @@ namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\Admin;
-use GiorgioSpa\Models\Role;
 use GiorgioSpa\Rules\NumericLength;
 use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
@@ -68,16 +67,12 @@ class AdminController extends Controller
 
         $defaultRoleIds = app(ModelRegister::class)->getRoleClass()::query()->where('is_super', '=', 1)->get(['id'])->pluck('id')->toArray();
 		$intersect = array_intersect($defaultRoleIds, $data['role_ids']);
-		if (!empty($intersect)) {
-			abort(403, '禁止建立系统默认角色');
-		}
+		abort_if(!empty($intersect),403, '禁止建立系统默认角色');
+
 		$countRoleId = app(ModelRegister::class)->getRoleClass()::query()->whereIn('id', $data['role_ids'])->count('id');
-		if (empty($countRoleId)) {
-			abort(404, '未查询到角色id所属角色');
-		}
-		if (count($data['role_ids']) != $countRoleId) {
-			abort(400, '存在非法角色');
-		}
+		abort_if(empty($countRoleId), 404, '未查询到角色id所属角色');
+
+		abort_if(count($data['role_ids']) != $countRoleId, 400, '存在非法角色');
 
 		$admin = app(ModelRegister::class)->getAdminClass()::create($data);
 		$admin->syncRoles($data['role_ids']);
@@ -134,13 +129,10 @@ class AdminController extends Controller
 		$intersect = array_intersect($roleIds, $origRoleIds);
 		$diff = array_diff($intersect,$data['role_ids']);
 
-		if (!empty($diff)) {
-			abort(403, '当前用户为系统角色,禁止修改角色类型');
-		}
+		abort_if(!empty($diff), 403, '当前用户为系统角色,禁止修改角色类型');
+
 		$roleIds = app(ModelRegister::class)->getRoleClass()::query()->whereIn('id', $data['role_ids'])->get(['id'])->toArray();
-		if (empty($roleIds)) {
-			abort(400, '未查询到角色id所属角色');
-		}
+        abort_if(empty($roleIds), 400, '未查询到角色id所属角色');
 
 		if ($data['status'] == app(ModelRegister::class)->getAdminClass()::STATUS_DISABLED && $admin->isSuper()) {
 			abort(400, '超管用户不可禁用');
@@ -163,9 +155,8 @@ class AdminController extends Controller
 
 	public function destroy(Admin $admin): JsonResponse
 	{
-		if ($admin->isSuper()) {
-			abort(403, '超级管理员禁止删除');
-		}
+        abort_if($admin->isSuper(), 403, '超级管理员禁止删除');
+
 		$admin->delete();
 		return $this->success();
 	}

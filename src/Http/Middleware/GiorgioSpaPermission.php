@@ -2,8 +2,8 @@
 
 namespace GiorgioSpa\Http\Middleware;
 
-use App\Models\Permission;
 use Closure;
+use GiorgioSpa\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;

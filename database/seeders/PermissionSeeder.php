@@ -14,7 +14,7 @@ class PermissionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $routes = Route::getRoutes();
         foreach ($routes as $route) {
@@ -39,17 +39,15 @@ class PermissionSeeder extends Seeder
             if ($nameArray[1] == 'list') {
                 continue;
             }
-            if (Str::plural($nameArray[0]) !== $nameArray[0]) {
-                abort(400,'group:' . $nameArray[0] . '为非复数');
-            }
+
+            abort_if(Str::plural($nameArray[0]) !== $nameArray[0], 400, 'group:' . $nameArray[0] . '为非复数');
+
             $groups = config('permission.groups');
-            if (!isset($groups[$nameArray[0]])) {
-                abort(400,$nameArray[0] . '未在group中配置');
-            }
+            abort_if(!isset($groups[$nameArray[0]]), 400, $nameArray[0] . '未在group中配置');
+
             $methods = config('permission.methods');
-            if (!isset($methods[$nameArray[1]])) {
-                abort(400,$nameArray[1] . '未在method中配置');
-            }
+            abort_if(!isset($methods[$nameArray[1]]), 400, $nameArray[1] . '未在method中配置');
+
             app(ModelRegister::class)->getPermissionClass()::query()->updateOrCreate([
                 'name' => $name,
                 'type' => $guard

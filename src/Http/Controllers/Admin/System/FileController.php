@@ -2,7 +2,7 @@
 
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
-use App\Http\Controllers\Controller;
+use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Services\Tencent\CosService;
 use Illuminate\Http\Request;
 
@@ -42,9 +42,7 @@ class FileController extends Controller
     public function upload(Request $request,$arr = 0): \Illuminate\Http\JsonResponse | array
     {
         ini_set('memory_limit','1024M');
-        if (!$request->file('file')) {
-            abort(400,'文件必传');
-        }
+        abort_if(!$request->file('file'), 400,'文件必传');
         $file = $request->file('file');
         $fileName = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
@@ -53,10 +51,8 @@ class FileController extends Controller
         }
         $size = $file->getSize();
         $maxSize = config('filesystems.max_upload_size');
-        if ($size > $maxSize) {
-            abort(400,'超出最大文件上传限制,请压缩后重试');
-        }
-        $realPatch = '';
+
+        abort_if($size > $maxSize, 400,'超出最大文件上传限制,请压缩后重试');
 
         //存储在腾讯云
         $path = CosService::save($file->getContent(), $fileName);
