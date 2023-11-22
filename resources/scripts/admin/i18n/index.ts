@@ -2,9 +2,9 @@ import { createI18n } from 'vue-i18n';
 import pinia from '@admin/stores/index';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '@admin/stores/themeConfig';
-import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
-import enLocale from 'element-plus/lib/locale/lang/en';
-import zhtwLocale from 'element-plus/lib/locale/lang/zh-tw';
+import zhcnLocale from 'element-plus/es/locale/lang/zh-cn';
+import enLocale from 'element-plus/es/locale/lang/en';
+import zhtwLocale from 'element-plus/es/locale/lang/zh-tw';
 
 import nextZhcn from '@admin/i18n/lang/zh-cn';
 import nextEn from '@admin/i18n/lang/en';
@@ -56,6 +56,7 @@ const { themeConfig } = storeToRefs(stores);
 
 // 导出语言国际化
 // https://vue-i18n.intlify.dev/guide/essentials/fallback.html#explicit-fallback-with-one-locale
+// @ts-ignore
 export const i18n = createI18n({
 	legacy: false,
 	silentTranslationWarn: true,

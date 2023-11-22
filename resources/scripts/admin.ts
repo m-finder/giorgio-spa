@@ -9,6 +9,7 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import '@admin/theme/index.scss';
 import mitt from 'mitt';
+// @ts-ignore
 import VueGridLayout from 'vue-grid-layout';
 import zhCn from "element-plus/es/locale/lang/zh-cn";
 
@@ -20,6 +21,7 @@ other.elSvg(app);
 app.use(pinia)
     .use(router)
     .use(ElementPlus, {
+        // @ts-ignore
         i18n: i18n.global.t,
         locale: zhCn
     }).use(i18n)
