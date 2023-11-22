@@ -11,7 +11,7 @@
       @clear="handleClear"
       @focus="handleFocus"
       :size="size"
-      v-model="data"
+      v-model="modelData"
       :loading="loading"
       :disabled="disabled"
       :multiple="multiple"
@@ -73,6 +73,11 @@ export default {
       type: String,
       default: ''
     }
+  },
+  data() {
+    return {
+      modelData: this.data
+    };
   },
   setup: function (props: any, {emit}) {
     // 搜索方法

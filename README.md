@@ -37,17 +37,15 @@ edit your sql config in env
 composer require wu/giorgio-spa
 php artisan spa:install
 php artisan spa:init
-npm install && npm run dev
+yarn install && npm run dev
 php artisan serve
 ```
 
 #### 注意事项
 
-> 只能在全新项目安装
+> 最好在全新项目安装
 > 
 > 配置文件需要根据实际情况更改
-> 
-> 只在 laravel 9.19 做过验证
 > 
 > 如果报错 WebSocket connection to 'ws://laravel.test:5173/' failed，在 .env 添加如下两行，并根据实际情况修改：
 
