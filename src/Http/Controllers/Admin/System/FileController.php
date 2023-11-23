@@ -62,7 +62,5 @@ class FileController extends Controller
             'path' => $path,
 
         ]);
-
-
     }
 }

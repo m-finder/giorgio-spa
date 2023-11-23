@@ -4,17 +4,18 @@ namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
 use GiorgioSpa\Models\ModelHasRole;
-use GiorgioSpa\Models\Role;
 use GiorgioSpa\Models\RoleHasPermission;
 use GiorgioSpa\Services\ModelRegister;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Contracts\Role;
 
 class RoleController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
+
         $res = app(ModelRegister::class)->getRoleClass()::query()
             ->with('permissions:id,name')
             ->filter($request->all())
@@ -52,7 +53,7 @@ class RoleController extends Controller
             'brief.max' => '角色描述长度超限',
         ]);
 
-        $data['guard_name'] = 'custom';
+        $data['guard_name'] = 'sanctum';
         app(ModelRegister::class)->getRoleClass()::query()->create($data);
         return $this->success();
     }
@@ -104,15 +105,16 @@ class RoleController extends Controller
         return $this->success();
     }
 
-    public function auth(Request $request, Role $role): JsonResponse
+    public function auth(Request $request, int $id): JsonResponse
     {
-
         $data = $request->all();
         $this->validate($request, [
             'permissions' => 'array'
         ], [
             'permissions.array' => '角色权限类型错误',
         ]);
+
+        $role = app(ModelRegister::class)->getRoleClass()->query()->find($id);
         $oldIds = $role->getAllPermissions()->pluck('id')->toArray();
         $newIds = app(ModelRegister::class)->getPermissionClass()::query()->whereIn('name', $data['permissions'])->get()->pluck('id')->toArray();
 

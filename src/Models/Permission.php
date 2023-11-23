@@ -23,6 +23,8 @@ class Permission extends \Spatie\Permission\Models\Permission
 	    'pivot'
     ];
 
+    protected string $guard_name = 'sanctum';
+
     /**
      * The attributes that should be cast to native types.
      *

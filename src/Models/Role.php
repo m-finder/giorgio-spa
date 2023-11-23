@@ -4,11 +4,15 @@ namespace GiorgioSpa\Models;
 
 use GiorgioSpa\Models\Filters\RoleFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\PermissionRegistrar;
 
 class Role extends \Spatie\Permission\Models\Role
 {
     use HasFactory, RoleFilter, SoftDeletes;
+
+    protected $table = 'roles';
 
     protected $fillable = [
         'name',
@@ -20,8 +24,10 @@ class Role extends \Spatie\Permission\Models\Role
 
     protected $hidden = [
         'guard_name',
-	    'pivot'
+        'pivot'
     ];
+
+    protected string $guard_name = 'sanctum';
 
     /**
      * The attributes that should be cast to native types.
@@ -39,4 +45,13 @@ class Role extends \Spatie\Permission\Models\Role
         return $this->getAttribute('name');
     }
 
+    public function permissions(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            config('permission.models.permission'),
+            config('permission.table_names.role_has_permissions'),
+            PermissionRegistrar::$pivotRole,
+            PermissionRegistrar::$pivotPermission
+        );
+    }
 }

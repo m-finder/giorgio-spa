@@ -64,7 +64,7 @@ export default defineComponent({
     };
 
     // 获取权限列表
-    const getPermissions = (row) => {
+    const getPermissions = (row: any) => {
       state.dialogLoading = true
       permissionApi().getPermissions({type: 'admin'}).then(res => {
         adminPermissions(row, res)
@@ -77,9 +77,9 @@ export default defineComponent({
       })
     };
     // 遍历权限
-    const adminPermissions = (row, res) => {
-      let globalRouter = []
-      let selectRouter = []
+    const adminPermissions = (row: any, res: any) => {
+      let globalRouter: any[] = []
+      let selectRouter: any[] = []
       row.permissions.map(e => {
         selectRouter.push(e.name)
       })

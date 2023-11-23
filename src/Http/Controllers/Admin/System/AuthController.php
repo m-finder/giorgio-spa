@@ -3,7 +3,6 @@
 namespace GiorgioSpa\Http\Controllers\Admin\System;
 
 use GiorgioSpa\Http\Controllers\Controller;
-use GiorgioSpa\Models\Admin;
 use GiorgioSpa\Models\PersonalAccessToken;
 use GiorgioSpa\Services\ChuangLan\SmsService;
 use GiorgioSpa\Services\ModelRegister;

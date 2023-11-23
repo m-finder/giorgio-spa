@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::prefix(config('giorgio.prefix'))->group(function () {
     Route::get('/', function () {
         return view('admin');
@@ -37,14 +36,13 @@ Route::prefix(config('giorgio.prefix'))->group(function () {
     })->name('captcha');
 
     Route::post('login', [AuthController::class, 'login'])->name('login');
-    Route::post('verification_code', [SmsCodeController::class, 'store'])->name('sms.code');
 
     Route::group([
         'middleware' => ['auth:sanctum', 'giorgio.permission']
     ], function () {
 
-        Route::patch('password/{admin}', [PasswordController::class, 'reset'])->name('passwords.reset');
-        Route::put('password/{admin}', [PasswordController::class, 'update'])->name('passwords.update');
+        Route::patch('password/{id}', [PasswordController::class, 'reset'])->name('passwords.reset');
+        Route::put('password/{id}', [PasswordController::class, 'update'])->name('passwords.update');
 
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -56,7 +54,7 @@ Route::prefix(config('giorgio.prefix'))->group(function () {
         Route::get('admins/list', [AdminController::class, 'list'])->name('admins.list');
         Route::apiresource('admins', AdminController::class, ['except' => ['show']]);
 
-        Route::patch('roles/{role}/auth', [RoleController::class, 'auth'])->name('roles.auth');
+        Route::patch('roles/{id}/auth', [RoleController::class, 'auth'])->name('roles.auth');
         Route::get('roles/list', [RoleController::class, 'list'])->name('roles.list');
         Route::apiresource('roles', RoleController::class, ['except' => ['show']]);
 

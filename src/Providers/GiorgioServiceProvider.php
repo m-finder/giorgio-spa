@@ -6,9 +6,10 @@ use GiorgioSpa\Console\InitDatabaseCommand;
 use GiorgioSpa\Console\InstallCommand;
 use GiorgioSpa\Http\Middleware\GiorgioSpaPermission;
 use GiorgioSpa\Models\PersonalAccessToken;
-use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\Sanctum;
 
 class GiorgioServiceProvider extends ServiceProvider
@@ -22,13 +23,6 @@ class GiorgioServiceProvider extends ServiceProvider
         'giorgio.permission' => GiorgioSpaPermission::class,
     ];
 
-    protected array $middlewareGroups = [
-        'admin' => [
-            'throttle:api',
-            SubstituteBindings::class,
-        ]
-    ];
-
     public function boot(): void
     {
         $this->registerConfig();
@@ -40,7 +34,11 @@ class GiorgioServiceProvider extends ServiceProvider
             $this->publishing();
         }
 
-        if(file_exists(base_path('routes/giorgio.php'))){
+        if (file_exists(base_path('routes/giorgio.php'))) {
+            $domain = config('giorgio.domain');
+            Route::middleware('backend')
+                ->domain($domain)
+                ->group(base_path('routes/giorgio.php'));
             $this->loadRoutesFrom(base_path('routes/giorgio.php'));
         }
     }
@@ -53,18 +51,12 @@ class GiorgioServiceProvider extends ServiceProvider
     protected function registerConfig(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../../config/giorgio.php', 'giorgio');
-
-        config(Arr::dot(config('giorgio.auth', []), 'auth.'));
     }
 
     protected function registerMiddleware(): void
     {
         foreach ($this->routeMiddleware as $key => $middleware) {
             app('router')->aliasMiddleware($key, $middleware);
-        }
-
-        foreach ($this->middlewareGroups as $key => $middleware) {
-            app('router')->middlewareGroup($key, $middleware);
         }
     }
 
@@ -84,7 +76,7 @@ class GiorgioServiceProvider extends ServiceProvider
         $this->publishes([__DIR__ . '/../../resources' => base_path('resources')], 'resources');
         $this->publishes([__DIR__ . '/../../src/Exceptions/Handler.php' => base_path('app/Exceptions/Handler.php')]);
         $this->publishes([__DIR__ . '/../../spa-stubs' => base_path('')]);
-        if(file_exists('./vite.config.js')){
+        if (file_exists('./vite.config.js')) {
             del_file('./vite.config.js');
         }
     }
@@ -94,9 +86,9 @@ class GiorgioServiceProvider extends ServiceProvider
         Sanctum::usePersonalAccessTokenModel(PersonalAccessToken::class);
 
         //自定义token是否过期的方法
-        Sanctum::authenticateAccessTokensUsing(function ($accessToken, $isValid){
+        Sanctum::authenticateAccessTokensUsing(function ($accessToken, $isValid) {
             $expiration = config('sanctum.expiration', 120);
-            $time = $accessToken->last_used_at??$accessToken->created_at;
+            $time = $accessToken->last_used_at ?? $accessToken->created_at;
             return $time->gt(now()->subMinutes($expiration));
         });
     }

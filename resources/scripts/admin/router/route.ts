@@ -108,6 +108,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
                     }
                 ],
             },
+            // 以下为演示菜单，不受后端权限校验
             {
                 path: '/menu',
                 name: 'menu',

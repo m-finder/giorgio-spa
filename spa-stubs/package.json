@@ -23,7 +23,7 @@
         "element-plus": "^2.4.2",
         "js-cookie": "^3.0.5",
         "jsplumb": "^2.15.6",
-        "mitt": "^3.0.1",
+        "mitt": "^3.0.0",
         "nprogress": "^0.2.0",
         "pinia": "^2.1.7",
         "print-js": "^1.6.0",

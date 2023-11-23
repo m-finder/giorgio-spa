@@ -80,9 +80,10 @@ class AdminController extends Controller
 		return $this->success();
 	}
 
-	public function update(Request $request, Admin $admin): JsonResponse
+	public function update(Request $request, int $id): JsonResponse
 	{
 		$data = $request->all();
+        $admin = app(ModelRegister::class)->getAdminClass()->query()->find($id);
 		$this->validate($request, [
 			'phone' => [
 				'required',
@@ -153,8 +154,10 @@ class AdminController extends Controller
 		return $this->success();
 	}
 
-	public function destroy(Admin $admin): JsonResponse
+	public function destroy(int $id): JsonResponse
 	{
+        $admin = app(ModelRegister::class)->getAdminClass()->query()->find($id);
+        abort_if($admin->getKey() == admin()->getKey(), 403, '不能删除自己');
         abort_if($admin->isSuper(), 403, '超级管理员禁止删除');
 
 		$admin->delete();

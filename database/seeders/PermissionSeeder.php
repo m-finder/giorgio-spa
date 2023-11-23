@@ -23,7 +23,7 @@ class PermissionSeeder extends Seeder
             $action = $route->action;
             $guard = 'admin';
             $name = $action['as'] ?? '';
-            if(!isset($action['domain'])){
+            if (!isset($action['domain'])) {
                 continue;
             }
 
@@ -56,7 +56,7 @@ class PermissionSeeder extends Seeder
                 'name_zh_cn' => $groups[$nameArray[0]] . $methods[$nameArray[1]],
                 'method' => $method,
                 'uri' => $uri,
-                'guard_name' => 'custom',
+                'guard_name' => 'sanctum',
                 'type' => $guard
             ]);
         }
