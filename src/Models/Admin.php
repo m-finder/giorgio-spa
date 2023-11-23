@@ -2,12 +2,15 @@
 
 namespace GiorgioSpa\Models;
 
+use DateTimeInterface;
 use GiorgioSpa\Models\Filters\AdminFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
@@ -15,7 +18,9 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use HasFactory, SoftDeletes, HasFactory, Notifiable, HasRoles, HasApiTokens, AdminFilter;
+    use HasFactory, SoftDeletes, Notifiable, HasRoles, HasApiTokens, AdminFilter;
+
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',
@@ -31,11 +36,10 @@ class Admin extends Authenticatable
         'remember_token',
     ];
 
-    protected string $guard_name = 'custom';
+    protected string $guard_name = 'sanctum';
 
     const STATUS_ENABLED = 'enabled';
     const STATUS_DISABLED = 'disabled';
-
 
 
 
@@ -52,10 +56,10 @@ class Admin extends Authenticatable
     /**
      * @param string $name
      * @param array|string[] $abilities
-     * @param null $merchantId
+     * @param DateTimeInterface|null $expiresAt
      * @return NewAccessToken
      */
-    public function createToken(string $name, array $abilities = ['*']): NewAccessToken
+    public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null): NewAccessToken
     {
         $token = $this->tokens()->create([
             'name' => $name,
@@ -67,10 +71,6 @@ class Admin extends Authenticatable
         return new NewAccessToken($token, $token->getKey() . '|' . $plainTextToken);
     }
 
-    public function updateToken($array)
-    {
-        $this->currentAccessToken()->update($array);
-    }
 
     public function getPhone()
     {
@@ -84,12 +84,12 @@ class Admin extends Authenticatable
         return $this->hasAnyRole($roleIds);
     }
 
-    public function getRoleIds(): \Illuminate\Support\Collection
+    public function getRoleIds(): Collection
     {
         return $this->roles->pluck('id');
     }
 
-    public static function create($data): \Illuminate\Database\Eloquent\Model|Admin|\Illuminate\Database\Eloquent\Builder
+    public static function create($data): \Illuminate\Database\Eloquent\Model|Admin|Builder
     {
         $data['password'] = bcrypt($data['password'] ?? 'abc123');
         return self::query()->firstOrCreate([

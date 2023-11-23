@@ -1,6 +1,6 @@
 <?php
 
-namespace GiorgioSpa\Exceptions;
+namespace App\Exceptions;
 
 use ErrorException;
 use Illuminate\Auth\AuthenticationException;

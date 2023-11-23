@@ -19,9 +19,9 @@ class PersonalAccessToken extends SanctumPersonalAccessToken
     public static function handleOldToken()
     {
         admin()->tokens()
-            ->where('name','!=','invalid_token')
-            ->where('last_used_at','<',Carbon::now()->subMinutes(config('sanctum.expire_minute')))
+            ->where('name', '!=', 'invalid_token')
+            ->where('last_used_at', '<', Carbon::now()->subMinutes(config('sanctum.expire_minute')))
             ->delete();
-        self::query()->where('tokenable_id','=',admin()->getKey())->update(['name' => 'invalid_token']);
+        self::query()->where('tokenable_id', '=', admin()->getKey())->update(['name' => 'invalid_token']);
     }
 }
