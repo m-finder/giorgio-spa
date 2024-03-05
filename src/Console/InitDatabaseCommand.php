@@ -21,14 +21,13 @@ class InitDatabaseCommand extends Command
      */
     protected $description = 'spa init database';
 
-
     public function handle(): void
     {
         $this->call('migrate', [
-                '--path' => '/database/migrations/admin/'
+            '--path' => '/database/migrations/admin/',
         ]);
         $this->call('db:seed', [
-            '--class' => DatabaseSeeder::class
+            '--class' => DatabaseSeeder::class,
         ]);
     }
 }

@@ -7,22 +7,20 @@ use Illuminate\Contracts\Validation\Rule;
 class NumericLength implements Rule
 {
     protected string $attrName;
-    protected int $length;
 
+    protected int $length;
 
     public function __construct($length, $attrName = null)
     {
         $this->attrName = $attrName;
         $this->length = $length;
-
     }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     * @param mixed $value
-     * @return bool
+     * @param  string  $attribute
+     * @param  mixed  $value
      */
     public function passes($attribute, $value): bool
     {
@@ -31,12 +29,11 @@ class NumericLength implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {
         $attrName = $this->attrName ?? ':attribute';
-        return $attrName . '必须为' . $this->length . '位';
+
+        return $attrName.'必须为'.$this->length.'位';
     }
 }

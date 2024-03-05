@@ -10,7 +10,7 @@ trait AdminFilter
 
     protected function nameFilter($name): Builder
     {
-        return $this->builder->where('name', 'like', '%' . $name . '%');
+        return $this->builder->where('name', 'like', '%'.$name.'%');
     }
 
     protected function roleIdFilter($roleId): Builder
@@ -22,11 +22,11 @@ trait AdminFilter
 
     protected function phoneFilter($phone): Builder
     {
-        return $this->builder->where('phone', '=',  $phone );
+        return $this->builder->where('phone', '=', $phone);
     }
 
     protected function emailFilter($email): Builder
     {
-        return $this->builder->where('email', 'like', '%' . $email . '%');
+        return $this->builder->where('email', 'like', '%'.$email.'%');
     }
 }

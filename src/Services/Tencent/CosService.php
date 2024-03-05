@@ -6,8 +6,7 @@ use Qcloud\Cos\Client;
 
 class CosService
 {
-
-    public static function save($file,$fileName): string
+    public static function save($file, $fileName): string
     {
         $cosClient = new Client(
             [
@@ -15,8 +14,8 @@ class CosService
                 'schema' => config('giorgio.tencent.cos.scheme'), //协议头部，默认为http
                 'credentials' => [
                     'secretId' => config('giorgio.tencent.cos.secret_id'),
-                    'secretKey' => config('giorgio.tencent.cos.secret_key')
-                ]
+                    'secretKey' => config('giorgio.tencent.cos.secret_key'),
+                ],
             ]
         );
 
@@ -27,6 +26,7 @@ class CosService
             $fileName,
             $file
         );
+
         return config('giorgio.tencent.cos.scheme').'://'.$result['Location'];
     }
 }

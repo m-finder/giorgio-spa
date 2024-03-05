@@ -11,6 +11,6 @@ class ModelHasRole extends Model
     protected $fillable = [
         'role_id',
         'model_type',
-        'model_id'
+        'model_id',
     ];
 }

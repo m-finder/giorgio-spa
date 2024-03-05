@@ -21,11 +21,10 @@ class InstallCommand extends Command
      */
     protected $description = 'spa installer';
 
-
     public function handle(): void
     {
-        $this->info("installing armani admin");
-        if (file_exists(config_path('giorgio.php')) && !$this->confirm('files already exists, overwrite?')) {
+        $this->info('installing armani admin');
+        if (file_exists(config_path('giorgio.php')) && ! $this->confirm('files already exists, overwrite?')) {
             $this->info('canceled');
             exit;
         }

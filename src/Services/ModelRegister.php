@@ -8,9 +8,10 @@ use Spatie\Permission\Contracts\Permission;
 
 class ModelRegister
 {
-
     private string $permissionClass;
+
     private string $adminClass;
+
     private string $roleClass;
 
     public function __construct()

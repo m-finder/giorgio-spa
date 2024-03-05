@@ -213,5 +213,5 @@ return [
         'system.info',
         'passwords.reset',
         'passwords.update',
-    ]
+    ],
 ];

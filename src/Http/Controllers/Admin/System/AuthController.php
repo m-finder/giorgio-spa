@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-
     public function login(Request $request): JsonResponse
     {
         $data = $request->all();
         $rule = [
             'account' => 'required',
             'sms_code' => 'required_if:is_password,false',
-            'password' => 'required_if:is_password,true'
+            'password' => 'required_if:is_password,true',
         ];
 
         if (config('app.env') != 'local') {
             $rule['captcha_key'] = 'required';
-            $rule['captcha'] = 'required|captcha_api:' . $data['captcha_key'];
+            $rule['captcha'] = 'required|captcha_api:'.$data['captcha_key'];
         }
 
         $this->validate($request, $rule, [
@@ -37,8 +36,8 @@ class AuthController extends Controller
 
         $admin = $this->validateAdmin($request);
 
-        if($request->get('is_password') === true){
-            if(!password_verify($request->get('password'), $admin->getAttribute('password'))){
+        if ($request->get('is_password') === true) {
+            if (! password_verify($request->get('password'), $admin->getAttribute('password'))) {
                 abort(400, '密码错误');
             }
         }
@@ -47,12 +46,11 @@ class AuthController extends Controller
 
         abort_if(admin()->isDisabled(), 403, '账号已禁用,请联系管理员解禁');
 
-        if ($request->get('is_password') !== true && !SmsService::validateSmsCode(admin()->getPhone(), $data['sms_code'])) {
+        if ($request->get('is_password') !== true && ! SmsService::validateSmsCode(admin()->getPhone(), $data['sms_code'])) {
             abort(400, '短信验证码错误');
         }
 
         return $this->loginSucceeded();
-
     }
 
     public function loginSucceeded(): JsonResponse
@@ -66,24 +64,22 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();
+
         return $this->success();
     }
 
     protected function validateAdmin(Request $request)
     {
         $account = $request->get('account');
-        $admin = app(ModelRegister::class)->getAdminClass()::query()->where(function ($query) use($account){
+        $admin = app(ModelRegister::class)->getAdminClass()::query()->where(function ($query) use ($account) {
             return $query->where('phone', '=', $account)->orWhere('name', '=', $account);
         })->first();
 
         abort_if(empty($admin), 404, '账户不存在');
+
         return $admin;
     }
 }

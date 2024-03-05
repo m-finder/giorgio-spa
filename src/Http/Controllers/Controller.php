@@ -16,8 +16,7 @@ class Controller extends BaseController
 
     /**
      *  默认成功返回
-     * @param $data
-     * @param string $msg
+     *
      * @return JsonResponse
      */
     public function success($data = null, string $msg = '操作成功')
@@ -25,7 +24,7 @@ class Controller extends BaseController
         return response()->json([
             'status' => self::HTTP_SUCCESS,
             'data' => $data ?? [],
-            'msg' => $msg
+            'msg' => $msg,
         ]);
     }
 }

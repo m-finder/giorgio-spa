@@ -9,23 +9,24 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
-
     public function index(Request $request): JsonResponse
     {
         $permissions = app(ModelRegister::class)->getPermissionClass()::query()
             ->filter($request->all())
             ->orderBy('name')
             ->get();
+
         return $this->success($permissions);
     }
 
     public function list(Request $request): JsonResponse
     {
-        if(admin()->isSuper()){
+        if (admin()->isSuper()) {
             return $this->success(['*']);
         }
 
         $permissions = admin()->getAllPermissions();
+
         return $this->success($permissions->pluck('name'));
     }
 }

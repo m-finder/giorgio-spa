@@ -10,8 +10,6 @@ class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run(): void
     {
@@ -31,7 +29,7 @@ class AdminSeeder extends Seeder
         $role = app(ModelRegister::class)->getRoleClass()->query()->updateOrCreate([
             'name' => '超级管理员',
             'guard_name' => 'sanctum',
-            'is_super' => true
+            'is_super' => true,
         ]);
 
         $permissions = app(ModelRegister::class)->getPermissionClass()->query()->get(['id']);

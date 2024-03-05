@@ -20,7 +20,7 @@ class Permission extends \Spatie\Permission\Models\Permission
 
     protected $hidden = [
         'guard_name',
-	    'pivot'
+        'pivot',
     ];
 
     protected string $guard_name = 'sanctum';
