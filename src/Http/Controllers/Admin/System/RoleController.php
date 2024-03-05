@@ -15,12 +15,12 @@ class RoleController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-
         $res = app(ModelRegister::class)->getRoleClass()::query()
             ->with('permissions:id,name')
             ->filter($request->all())
             ->orderByDesc('id')
             ->paginate($request->get('limit'));
+
         return $this->success($res);
     }
 
@@ -31,6 +31,7 @@ class RoleController extends Controller
             ->orderByDesc('id')
             ->select(['id', 'name'])
             ->paginate($request->get('limit'));
+
         return $this->success($res);
     }
 
@@ -44,7 +45,7 @@ class RoleController extends Controller
                 Rule::unique('roles')->where(function ($query) {
                     $query->where('deleted_at', '=', null);
                 }),
-                'max:255'
+                'max:255',
             ],
             'brief' => 'nullable|max:255',
         ], [
@@ -55,10 +56,11 @@ class RoleController extends Controller
 
         $data['guard_name'] = 'sanctum';
         app(ModelRegister::class)->getRoleClass()::query()->create($data);
+
         return $this->success();
     }
 
-    public function update(Request $request, Role $role): \Illuminate\Http\JsonResponse
+    public function update(Request $request, Role $role): JsonResponse
     {
         $data = $request->all();
         $this->validate($request, [
@@ -67,7 +69,7 @@ class RoleController extends Controller
                 Rule::unique('roles')->where(function ($query) {
                     $query->where('deleted_at', '=', null);
                 })->ignore($role->getKey()),
-                'max:255'
+                'max:255',
             ],
             'brief' => 'nullable|max:255',
         ], [
@@ -82,26 +84,27 @@ class RoleController extends Controller
                 'is_super' => 1,
             ])->get(['id'])->pluck('id')->toArray();
         if (in_array($role->getKey(), $defaultRoleIds)) {
-            abort(403, $role->getName() . '为默认角色,禁止修改');
+            abort(403, $role->getName().'为默认角色,禁止修改');
         }
         $role->fill($data);
         $role->save();
+
         return $this->success();
     }
-
 
     public function destroy(Role $role): JsonResponse
     {
         $defaultRoleIds = app(ModelRegister::class)->getRoleClass()::query()->where([
-            'is_super' => 1
+            'is_super' => 1,
         ])->get(['id'])->pluck('id')->toArray();
 
         if (in_array($role->getKey(), $defaultRoleIds)) {
-            abort(400, $role->getName() . '为默认角色禁止删除');
+            abort(400, $role->getName().'为默认角色禁止删除');
         }
         ModelHasRole::query()->where('role_id', '=', $role->getKey())->delete();
         RoleHasPermission::query()->where('role_id', '=', $role->getKey())->delete();
         $role->delete();
+
         return $this->success();
     }
 
@@ -109,7 +112,7 @@ class RoleController extends Controller
     {
         $data = $request->all();
         $this->validate($request, [
-            'permissions' => 'array'
+            'permissions' => 'array',
         ], [
             'permissions.array' => '角色权限类型错误',
         ]);
@@ -124,6 +127,7 @@ class RoleController extends Controller
         RoleHasPermission::query()->where('role_id', '=', $role->getKey())
             ->whereIn('permission_id', $old)
             ->delete();
+
         return $this->success();
     }
 }

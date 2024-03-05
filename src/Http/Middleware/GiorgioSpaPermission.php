@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class GiorgioSpaPermission
 {
-
     public function handle(Request $request, Closure $next)
     {
         $route = Route::currentRouteName();
@@ -37,10 +36,10 @@ class GiorgioSpaPermission
             abort(404, '权限不存在');
         }
 
-        if (!admin()->isSuper() && !admin()->hasPermissionTo($permission)) {
+        if (! admin()->isSuper() && ! admin()->hasPermissionTo($permission)) {
             abort(403, '无此权限');
         }
+
         return $next($request);
     }
-
 }

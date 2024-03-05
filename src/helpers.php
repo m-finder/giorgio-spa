@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-if (!function_exists('admin')) {
+if (! function_exists('admin')) {
     /**
      * 当前管理员
-     * @return Authenticatable|null|Admin
      */
     function admin(): Authenticatable|null|Admin
     {
@@ -19,8 +18,7 @@ if (!function_exists('admin')) {
     }
 }
 
-
-if (!function_exists('filter_special')) {
+if (! function_exists('filter_special')) {
     /**
      * 过滤字符串中的特殊字符
      */
@@ -34,7 +32,7 @@ if (!function_exists('filter_special')) {
             '　',
             '‭',
             '‬',
-            chr(194) . chr(160),
+            chr(194).chr(160),
             "\n",
             "\r",
             "\t",
@@ -42,17 +40,14 @@ if (!function_exists('filter_special')) {
             "\f",
             "\v",
         ];
+
         return str_replace($search, '', $str);
     }
 }
 
-
-if (!function_exists('yuan2fen')) {
+if (! function_exists('yuan2fen')) {
     /**
      * 金额元转分
-     * @param $amount
-     * @param int $scale
-     * @return string
      */
     function yuan2fen($amount, int $scale = 0): string
     {
@@ -60,14 +55,9 @@ if (!function_exists('yuan2fen')) {
     }
 }
 
-
-if (!function_exists('fen2yuan')) {
+if (! function_exists('fen2yuan')) {
     /**
      * 金额分转元
-     * @param int|null $amount
-     * @param int $scale
-     * @param bool $format
-     * @return int|string
      */
     function fen2yuan(int $amount = null, int $scale = 2, bool $format = false): int|string
     {
@@ -75,78 +65,72 @@ if (!function_exists('fen2yuan')) {
     }
 }
 
-
-if (!function_exists('array2string')) {
+if (! function_exists('array2string')) {
     /**
      * 数组转字符串
-     * @param $arr
-     * @return mixed
      */
     function array2string($arr): mixed
     {
         if (is_array($arr)) {
             return implode(',', array_map('array2string', $arr));
         }
+
         return $arr;
     }
 }
 
-if (!function_exists('mask_name')) {
+if (! function_exists('mask_name')) {
     /**
      * 姓名脱敏,首位最后一位*号
-     * @param $name
-     * @return string
+     *
      * @noinspection PhpPureAttributeCanBeAddedInspection
      */
     function mask_name($name): string
     {
         $length = Str::length($name);
-        $first = Str::substr($name, 0, 1) . '*';
-        return $length <= 2 ? $first : $first . Str::substr($name, -1);
+        $first = Str::substr($name, 0, 1).'*';
+
+        return $length <= 2 ? $first : $first.Str::substr($name, -1);
     }
 }
 
-if (!function_exists('mask_cert_no')) {
+if (! function_exists('mask_cert_no')) {
     /**
      * 身份证号脱敏,保留前四后四
-     * @param $certNo
-     * @return string
+     *
      * @noinspection PhpPureAttributeCanBeAddedInspection
      */
     function mask_cert_no($certNo): string
     {
-        return Str::substr($certNo, 0, 4) . '**********' . Str::substr($certNo, -4);
+        return Str::substr($certNo, 0, 4).'**********'.Str::substr($certNo, -4);
     }
 }
 
-if (!function_exists('mask_bank_card_no')) {
+if (! function_exists('mask_bank_card_no')) {
     /**
      * 银行卡号脱敏,保留前四后四
-     * @param $bankCardNo
-     * @return string
+     *
      * @noinspection PhpPureAttributeCanBeAddedInspection
      */
     function mask_bank_card_no($bankCardNo): string
     {
-        return Str::substr($bankCardNo, 0, 4) . '**********' . Str::substr($bankCardNo, -4);
+        return Str::substr($bankCardNo, 0, 4).'**********'.Str::substr($bankCardNo, -4);
     }
 }
 
-if (!function_exists('mask_phone')) {
+if (! function_exists('mask_phone')) {
     /**
      * 手机号号脱敏,保留前三后四
-     * @param $phone
-     * @return string
+     *
      * @noinspection PhpPureAttributeCanBeAddedInspection
      */
     function mask_phone($phone): string
     {
-        return Str::substr($phone, 0, 3) . '*****' . Str::substr($phone, -3);
+        return Str::substr($phone, 0, 3).'*****'.Str::substr($phone, -3);
     }
 }
 
-
-if (!function_exists('add_timestamps')) {
+if (! function_exists('add_timestamps')) {
     /**
      * 给数组添加创建时间,更新时间
      */
@@ -163,8 +147,7 @@ if (!function_exists('add_timestamps')) {
     }
 }
 
-
-if (!function_exists('split_native_place')) {
+if (! function_exists('split_native_place')) {
     /**
      * 从地址中分割籍贯地址
      */
@@ -178,29 +161,27 @@ if (!function_exists('split_native_place')) {
                 $finalPos = $pos;
             }
         }
+
         return mb_substr($str, 0, $finalPos + 1);
     }
 }
 
-
-if (!function_exists('binging_into_sql')) {
+if (! function_exists('binging_into_sql')) {
     /**
      * 将binging参数添加到sql的中
      */
     function binging_into_sql($bindings, $sql)
     {
         return array_reduce($bindings, function ($sql, $binding) {
-            return preg_replace('/\?/', is_numeric($binding) ? $binding : "'" . $binding . "'", $sql, 1);
+            return preg_replace('/\?/', is_numeric($binding) ? $binding : "'".$binding."'", $sql, 1);
         }, $sql);
     }
 }
 
-
-if (!function_exists('url_basename')) {
+if (! function_exists('url_basename')) {
     /**
      * 从文件地址中截取文件名称
-     * @param string $url
-     * @return string
+     *
      * @noinspection PhpPureAttributeCanBeAddedInspection
      */
     function url_basename(string $url): string
@@ -209,13 +190,9 @@ if (!function_exists('url_basename')) {
     }
 }
 
-
-if (!function_exists('array_key_sort')) {
-
+if (! function_exists('array_key_sort')) {
     /**
      * 多维数组排序
-     * @param array $params
-     * @return array
      */
     function array_key_sort(array $params): array
     {
@@ -234,11 +211,9 @@ if (!function_exists('array_key_sort')) {
     }
 }
 
-if (!function_exists('route_display')) {
+if (! function_exists('route_display')) {
     /**
      * 路由名称转中文
-     * @param string $route
-     * @return string
      */
     function route_display(string $route = ''): string
     {
@@ -248,15 +223,14 @@ if (!function_exists('route_display')) {
         $arr = explode('.', $route);
         $group = config('permission.groups')[$arr[0]] ?? '';
         $method = isset($arr[1]) ? config('permission.methods')[$arr[1]] : '';
-        return $group . $method;
+
+        return $group.$method;
     }
 }
 
-if (!function_exists('route_group')) {
+if (! function_exists('route_group')) {
     /**
      * 路由名称转中文
-     * @param string $route
-     * @return string
      */
     function route_group(string $route = ''): string
     {
@@ -264,13 +238,13 @@ if (!function_exists('route_group')) {
             $route = Route::currentRouteName() ?? '';
         }
         $arr = explode('.', $route);
+
         return $arr[0] ?? '';
     }
 }
 
 //删除文件 $path为绝对路径
-if (!function_exists('del_file')) {
-
+if (! function_exists('del_file')) {
     function del_file($path): void
     {
         $url = iconv('utf-8', 'gbk', $path);
@@ -282,23 +256,22 @@ if (!function_exists('del_file')) {
             unlink($url);
         }
     }
-
 }
 
-
-if (!function_exists('validate_date')) {
+if (! function_exists('validate_date')) {
     /**
      * 日期参数校验
+     *
      * @throws Exception
      */
     function validate_date($date, $format = 'Y-m-d'): void
     {
         $validator = Validator::make([
-            'date' => $date
+            'date' => $date,
         ], [
-            'date' => 'date_format:' . $format,
+            'date' => 'date_format:'.$format,
         ], [
-            'date.date_format' => '日期格式错误,请使用' . $format . '格式',
+            'date.date_format' => '日期格式错误,请使用'.$format.'格式',
         ]);
         if ($validator->fails()) {
             throw new Exception($validator->errors()->first());
@@ -306,17 +279,12 @@ if (!function_exists('validate_date')) {
     }
 }
 
-
-if (!function_exists('unsigned_uuid')) {
-
+if (! function_exists('unsigned_uuid')) {
     /**
      * 无中划线的uuid
-     * @return string
      */
     function unsigned_uuid(): string
     {
         return (string) Str::of(Str::uuid())->replace('-', '');
     }
 }
-
-

@@ -10,6 +10,6 @@ trait RoleFilter
 
     protected function nameFilter($name): Builder
     {
-        return $this->builder->where('name', 'like', '%' . $name . '%');
+        return $this->builder->where('name', 'like', '%'.$name.'%');
     }
 }

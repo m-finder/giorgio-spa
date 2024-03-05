@@ -5,9 +5,9 @@ namespace GiorgioSpa\Models;
 use DateTimeInterface;
 use GiorgioSpa\Models\Filters\AdminFilter;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -39,11 +39,10 @@ class Admin extends Authenticatable
     protected string $guard_name = 'sanctum';
 
     const STATUS_ENABLED = 'enabled';
+
     const STATUS_DISABLED = 'disabled';
 
-
-
-    protected function serializeDate(\DateTimeInterface $date): string
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return Carbon::instance($date)->toDateTimeString();
     }
@@ -54,10 +53,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * @param string $name
-     * @param array|string[] $abilities
-     * @param DateTimeInterface|null $expiresAt
-     * @return NewAccessToken
+     * @param  array|string[]  $abilities
      */
     public function createToken(string $name, array $abilities = ['*'], DateTimeInterface $expiresAt = null): NewAccessToken
     {
@@ -65,12 +61,11 @@ class Admin extends Authenticatable
             'name' => $name,
             'token' => hash('sha256', $plainTextToken = Str::random(40)),
             'abilities' => $abilities,
-            'last_used_at' => now()
+            'last_used_at' => now(),
         ]);
 
-        return new NewAccessToken($token, $token->getKey() . '|' . $plainTextToken);
+        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
     }
-
 
     public function getPhone()
     {
@@ -81,6 +76,7 @@ class Admin extends Authenticatable
     {
         $roleIds = Role::query()->where('is_super', '=', 1)
             ->get(['id'])->pluck('id')->toArray();
+
         return $this->hasAnyRole($roleIds);
     }
 
@@ -92,8 +88,9 @@ class Admin extends Authenticatable
     public static function create($data): \Illuminate\Database\Eloquent\Model|Admin|Builder
     {
         $data['password'] = bcrypt($data['password'] ?? 'abc123');
+
         return self::query()->firstOrCreate([
-            'phone' => $data['phone']
-        ],$data);
+            'phone' => $data['phone'],
+        ], $data);
     }
 }
